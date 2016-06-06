@@ -1,0 +1,18 @@
+!!!
+%html
+	%head
+		%title Noel Dispatch
+		= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+		= javascript_include_tag 'application', 'data-turbolinks-track' => true
+		= csrf_meta_tags
+
+	%body
+		%header
+			%nav
+				%ul
+					- if logged_in?
+						%li= link_to "Logout", logout_url, method: "delete"
+						%li= link_to "Profile", user_path(current_user)
+					-else
+						%li= link_to "Login", login_url
+		= yield
