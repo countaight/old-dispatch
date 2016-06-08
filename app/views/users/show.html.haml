@@ -1,0 +1,7 @@
+- if current_user
+	.success-message= flash[:success]
+	%h2= @user.name
+	%h4= @user.email
+- else
+	%h4 You are not logged in!
+	= link_to "Login", login_url

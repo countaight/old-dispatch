@@ -1,0 +1,18 @@
+.field_with_errors {
+	input {
+		border: 2px solid red;
+	}
+}
+
+form.new_user {
+	box-sizing: border-box;
+	width: 300px;
+	margin: 0 auto;
+	input {
+		font-size:  20px;
+		width: 100%;	
+		display: block;
+		margin-bottom: 5px;
+		box-sizing: border-box;
+	}
+}
