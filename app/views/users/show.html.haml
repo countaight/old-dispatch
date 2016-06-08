@@ -1,4 +1,5 @@
 - if current_user
+	.success-message= flash[:success]
 	%h2= @user.name
 	%h4= @user.email
 - else
