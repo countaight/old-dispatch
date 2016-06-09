@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@user = User.find_by(id: params[:id])
+		@user = current_user
 	end
 
 	def new
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			log_in @user
-			redirect_to @user
+			redirect_to profile_path
 		else
 			flash.now[:errors] = @user.errors.full_messages.uniq
 			render 'new'
