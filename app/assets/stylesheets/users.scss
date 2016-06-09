@@ -16,3 +16,38 @@ form.new_user {
 		box-sizing: border-box;
 	}
 }
+
+.login-form {
+	box-sizing: border-box;
+	width: 25%;
+	background-color: rgb(240, 240, 240);
+	outline: 2px dotted rgb(200, 200, 200);
+	margin: 20px auto;
+	text-align: center;
+	padding:1%;
+
+	h1 {
+		color: rbg(50, 50, 50);
+		font-family: 'Open Sans';
+	}
+
+	form {
+		display: inline-block;
+
+		input[type=submit] {
+			border: 0;
+			color: white;
+			font-weight: bolder;
+			font-size: 20px;
+			width: 100%;
+			height: 50px;
+			background-color: rgb(100, 200, 115);
+		}
+
+		input {
+			margin-bottom: 5px;
+			font-size: 20px;
+			display: block;
+		}
+	}
+}
