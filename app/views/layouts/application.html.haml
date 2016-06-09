@@ -8,11 +8,14 @@
 
 	%body
 		%header
+			.logo= link_to image_tag("noelyall.png"), root_path
 			%nav
-				%ul
+				%ul.main-nav
 					- if logged_in?
 						%li= link_to "Logout", logout_url, method: "delete"
 						%li= link_to "Profile", user_path(current_user)
 					-else
-						%li= link_to "Login", login_url
+						%li#staff= link_to "Staff", login_url
+						%li#drivers= link_to "Drivers", login_url
+						%li#client= link_to "Client", login_url
 		= yield

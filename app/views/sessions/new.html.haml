@@ -1,3 +1,5 @@
-%h1 Login
-.danger= flash[:danger]
-= render 'form'
+- if flash[:danger]
+	.danger= flash[:danger]
+.login-form
+	%h1 Login
+	= render 'form'

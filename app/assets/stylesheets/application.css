@@ -13,3 +13,68 @@
  *= require_tree .
  *= require_self
  */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800);
+
+a {
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+header {
+	height: 85px;
+	background-color: rgb(0,0,0);
+	box-shadow: 0px 8px 31px -15px rgba(91, 114, 132, 0.50)
+}
+
+nav {
+	float: right;
+	display: inline-block;
+	position: relative;
+	right: 0;
+}
+
+ul.main-nav {
+	margin: 0;
+	padding: 0;
+	color: white;
+	list-style: none;
+	box-sizing: border-box;
+}
+
+ul.main-nav li {
+	font-family: 'Open Sans';
+	padding: 20px 0;
+	text-align: center;
+	width: 200px;
+	display: inline-block;
+	font-size: 33px;
+	margin-left: -5px;
+}
+
+#staff {
+	background-color: rgb(150, 150, 150);
+}
+
+#drivers {
+	background-color: rgb(100, 100, 100);
+}
+
+#client {
+	background-color: rgb(50, 50, 50);
+}
+
+#staff:hover, #drivers:hover, #client:hover {
+	border-bottom-style: solid;
+	border-bottom-width: 5px;
+	border-color: rgb(100, 200, 115);
+	box-sizing: border-box;
+}
+
+.logo {
+	float: left;
+}
+
+.logo img {
+	height: 85px;
+}
