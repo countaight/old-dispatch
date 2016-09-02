@@ -1,13 +1,15 @@
 require 'rails_helper'
+include SessionsHelper
 
 describe UsersController do
 	let(:user) { User.create!(name: "Oscar Delgadillo",
 														email: "oscar@noeltrans.com",
 														password: "coconuts")}
 	describe "GET #show" do
-		it "assigns the requested user as @user" do
+		it "assigns the current user as @user" do
+			controller.log_in(user)
 			get :show, { id: user.id }
-			expect(assigns(:user)).to eq(user)
+			expect(assigns(:user)).to eq(current_user)
 		end
 	end
 
@@ -32,7 +34,7 @@ describe UsersController do
 
 			it "redirects to the user page" do
 				post :create, user: { name: "Oscar Delgadillo", email: "oscar@noeltrans.com", password: "coconuts" }
-				expect(response).to redirect_to(user_path(assigns(:user)))
+				expect(response).to redirect_to(profile_path)
 			end
 		end
 

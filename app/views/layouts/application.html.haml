@@ -13,7 +13,7 @@
 				%ul.main-nav
 					- if logged_in?
 						%li= link_to "Logout", logout_url, method: "delete"
-						%li= link_to "Profile", user_path(current_user)
+						%li= link_to "Profile", profile_path
 					-else
 						%li#staff= link_to "Staff", login_url
 						%li#drivers= link_to "Drivers", login_url
