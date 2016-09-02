@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+	skip_before_filter :verify_authenticity_token
+
 	def index
 		@users = User.all
 	end
@@ -20,6 +22,14 @@ class UsersController < ApplicationController
 			flash.now[:errors] = @user.errors.full_messages.uniq
 			render 'new'
 		end
+	end
+
+	def test
+		render json: { body: "Success!" }
+	end
+
+	def testPost
+		render json: { body: params[:coordinates].to_json }
 	end
 
 	private
