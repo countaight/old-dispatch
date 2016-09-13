@@ -52,4 +52,9 @@ build/
 .rvmrc
 *.log
 schema.rb
-.env
+.env# React on Rails
+npm-debug.log*
+node_modules
+
+# Generated js bundles
+/app/assets/webpack/*

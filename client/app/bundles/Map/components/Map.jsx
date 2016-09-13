@@ -1,0 +1,51 @@
+import React, { PropTypes } from 'react';
+import GoogleMap from'google-map-react';
+
+import MapMarker from './MapMarker.jsx';
+
+export default class Map extends React.Component {
+	constructor (props) {
+		super(props);
+		this.currentUserCoords = JSON.parse(this.props.currentUser.coordinates)
+		this.state = {
+			initCenter: [parseFloat(this.currentUserCoords.initialLat), parseFloat(this.currentUserCoords.initialLong)]
+		}
+	}
+
+	_getLocation () {
+		navigator.geolocation.getCurrentPosition((e) => {
+			this._setCenter([e.coords.latitude, e.coords.longitude])
+		})
+	}
+
+	_setCenter (coords) {
+		this.setState({
+			initCenter: coords
+		})
+	}
+
+	_renderMarkers () {
+		return (
+			this.props.users.map((user) => {
+				let initialLat = parseFloat(JSON.parse(user.coordinates).initialLat);
+				let initialLong = parseFloat(JSON.parse(user.coordinates).initialLong);
+				 return <MapMarker key={user.id} lat={initialLat} lng={initialLong} text={user.name} />
+			})
+		)
+	}
+
+	render () {
+		return (
+			<div style={{height: 400, width: 500}}>
+				<h1>Map with markers</h1>
+				<GoogleMap
+					center={this.state.initCenter}
+					defaultZoom={9}
+				>
+					{this._renderMarkers()}
+				</GoogleMap>
+				<button onClick={this._getLocation.bind(this)}>My Location</button>
+			</div>
+		)
+	}
+}
