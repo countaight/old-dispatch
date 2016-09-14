@@ -65,6 +65,7 @@ export default class Map extends React.Component {
 			<div style={{height: 400, width: '100%'}}>
 				<h1>Map with markers</h1>
 				<GoogleMap
+					bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
 					center={this.state.initCenter}
 					defaultZoom={12}
 					options={this._getMapStyle}
