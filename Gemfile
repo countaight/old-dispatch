@@ -32,7 +32,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'haml'
-gem 'react-rails'
+gem 'react_on_rails', '~> 6'
 gem 'cancancan'
 gem 'rolify'
 
@@ -51,3 +51,5 @@ group :development do
   gem 'spring'
 end
 
+gem 'rails_12factor', group: :production
+gem 'mini_racer', platforms: :ruby

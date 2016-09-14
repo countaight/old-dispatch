@@ -29,7 +29,15 @@ class UsersController < ApplicationController
 	end
 
 	def testPost
-		render json: { body: params[:coordinates].to_json }
+		user = User.find(params[:userId])
+		user.coordinates = params[:coordinates].to_json
+
+		if user.save
+			render json: { body: user.coordinates }
+		else
+			p user.errors.full_messages
+			render json: { body: "Something went wrong" }
+		end
 	end
 
 	private
