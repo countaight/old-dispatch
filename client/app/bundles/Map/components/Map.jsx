@@ -12,6 +12,32 @@ export default class Map extends React.Component {
 		}
 	}
 
+	_getMapStyle (maps) {
+		return {
+			styles: [
+			            {
+			              featureType: 'all',
+			              stylers: [
+			                { saturation: -100 }
+			              ]
+			            },{
+			              featureType: 'road.arterial',
+			              elementType: 'geometry',
+			              stylers: [
+			                { hue: '#00ffee' },
+			                { saturation: 50 }
+			              ]
+			            },{
+			              featureType: 'poi.business',
+			              elementType: 'labels',
+			              stylers: [
+			                { visibility: 'off' }
+			              ]
+			            }
+			          ]
+		}
+	}
+
 	_getLocation () {
 		navigator.geolocation.getCurrentPosition((e) => {
 			this._setCenter([e.coords.latitude, e.coords.longitude])
@@ -36,11 +62,12 @@ export default class Map extends React.Component {
 
 	render () {
 		return (
-			<div style={{height: 400, width: 500}}>
+			<div style={{height: 400, width: '100%'}}>
 				<h1>Map with markers</h1>
 				<GoogleMap
 					center={this.state.initCenter}
-					defaultZoom={9}
+					defaultZoom={12}
+					options={this._getMapStyle}
 				>
 					{this._renderMarkers()}
 				</GoogleMap>

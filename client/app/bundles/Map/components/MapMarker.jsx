@@ -23,11 +23,10 @@ const greatPlaceStyle = {
   left: -K_WIDTH / 2,
   top: -K_HEIGHT / 2,
 
-  border: '5px solid #f44336',
-  borderRadius: K_HEIGHT / 2,
-  backgroundColor: 'white',
+  border: '5px solid #669966',
+  backgroundColor: '#ddd',
   textAlign: 'center',
-  color: '#3f51b5',
+  color: '#669966',
   fontSize: 16,
   fontWeight: 'bold',
   padding: 4
