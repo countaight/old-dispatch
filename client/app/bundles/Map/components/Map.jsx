@@ -12,6 +12,10 @@ export default class Map extends React.Component {
 		}
 	}
 
+	_distanceToMouse (markerPos, mousePos, markerProps) {
+		console.log(markerPos.lat - mousePos.lat);
+	}
+
 	_getMapStyle (maps) {
 		return {
 			styles: [
@@ -72,6 +76,7 @@ export default class Map extends React.Component {
 				>
 					{this._renderMarkers()}
 				</GoogleMap>
+				{"\n\n"}
 				<button onClick={this._getLocation.bind(this)}>My Location</button>
 			</div>
 		)

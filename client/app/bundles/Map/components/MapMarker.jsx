@@ -1,14 +1,24 @@
 import React, { PropTypes } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-const K_WIDTH = 80;
-const K_HEIGHT = 40;
-
+const K_SIZE = 20;
 
 export default class MapMarker extends React.Component {
+  constructor (props) {
+    super(props);
+  }
+
   render () {
+    const style = this.props.$hover ? hoverStyle: greatPlaceStyle
     return (
-      <div style={greatPlaceStyle}>
-        {this.props.text}
+      <div>
+        <ReactCSSTransitionGroup
+          transitionName={"bubble"}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {this.props.$hover ? <div key={this.props.key} className={"bubble"}>{this.props.text}</div> : ""}
+        </ReactCSSTransitionGroup>
+        <div style={style} />
       </div>
     )
   }
@@ -18,16 +28,27 @@ const greatPlaceStyle = {
   // initially any map object has left top corner at lat lng coordinates
   // it's on you to set object origin to 0,0 coordinates
   position: 'absolute',
-  width: K_WIDTH,
-  height: K_HEIGHT,
-  left: -K_WIDTH / 2,
-  top: -K_HEIGHT / 2,
+  width: K_SIZE,
+  height: K_SIZE,
+  left: -K_SIZE / 2,
+  top: -K_SIZE / 2,
 
   border: '5px solid #669966',
-  backgroundColor: '#ddd',
+  borderRadius: K_SIZE,
+  backgroundColor: '#669966',
   textAlign: 'center',
   color: '#669966',
+  cursor: 'pointer',
   fontSize: 16,
   fontWeight: 'bold',
   padding: 4
 };
+
+const hoverStyle = {
+  // initially any map object has left top corner at lat lng coordinates
+  // it's on you to set object origin to 0,0 coordinates
+  ...greatPlaceStyle,
+  border: '5px solid #ddd',
+  backgroundColor: '#ddd',
+};
+
