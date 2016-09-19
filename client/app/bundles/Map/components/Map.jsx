@@ -8,37 +8,34 @@ export default class Map extends React.Component {
 		super(props);
 		this.currentUserCoords = JSON.parse(this.props.currentUser.coordinates)
 		this.state = {
-			initCenter: [parseFloat(this.currentUserCoords.initialLat), parseFloat(this.currentUserCoords.initialLong)]
+			initCenter: [parseFloat(this.currentUserCoords.initialLat), parseFloat(this.currentUserCoords.initialLong)],
+			zoom: 9
 		}
-	}
-
-	_distanceToMouse (markerPos, mousePos, markerProps) {
-		console.log(markerPos.lat - mousePos.lat);
 	}
 
 	_getMapStyle (maps) {
 		return {
 			styles: [
-			            {
-			              featureType: 'all',
-			              stylers: [
-			                { saturation: -100 }
-			              ]
-			            },{
-			              featureType: 'road.arterial',
-			              elementType: 'geometry',
-			              stylers: [
-			                { hue: '#00ffee' },
-			                { saturation: 50 }
-			              ]
-			            },{
-			              featureType: 'poi.business',
-			              elementType: 'labels',
-			              stylers: [
-			                { visibility: 'off' }
-			              ]
-			            }
-			          ]
+		            {
+		              featureType: 'all',
+		              stylers: [
+		                { saturation: -100 }
+		              ]
+		            },{
+		              featureType: 'road.arterial',
+		              elementType: 'geometry',
+		              stylers: [
+		                { hue: '#00ffee' },
+		                { saturation: 50 }
+		              ]
+		            },{
+		              featureType: 'poi.business',
+		              elementType: 'labels',
+		              stylers: [
+		                { visibility: 'off' }
+		              ]
+		            }
+		          ]
 		}
 	}
 
@@ -50,7 +47,8 @@ export default class Map extends React.Component {
 
 	_setCenter (coords) {
 		this.setState({
-			initCenter: coords
+			initCenter: coords,
+			zoom: 12
 		})
 	}
 
@@ -71,12 +69,12 @@ export default class Map extends React.Component {
 				<GoogleMap
 					bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
 					center={this.state.initCenter}
-					defaultZoom={12}
+					zoom={this.state.zoom}
 					options={this._getMapStyle}
 				>
 					{this._renderMarkers()}
 				</GoogleMap>
-				{"\n\n"}
+				<hr />
 				<button onClick={this._getLocation.bind(this)}>My Location</button>
 			</div>
 		)

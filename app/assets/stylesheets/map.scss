@@ -6,29 +6,49 @@
 
 .bubble {
   position: relative;
-  top: -40px;
-  left: -15px;
-  width: 50px;
+  top: -55px;
+  left: 8px;
+  width: 100px;
+  height: 50px;
   background-color: #669966;
   text-align: center;
   font-size: 12px;
   color: white;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.bubble-title {
+  font-size: 14px;
+  text-overflow: clip;
 }
 
 .bubble-enter {
-	top: 0px;
+	height: 0px;
+  width: 0px;
+  left: 0px;
+  top: 0px;
 }
 
 .bubble-enter.bubble-enter-active {
-  top: -40px;
-  transition: top 500ms ease-out;
+  height: 50px;
+  width: 100px;
+  left: 8px;
+  top: -55px;
+  transition: all 500ms ease-out;
 }
 
 .bubble-leave {
-  top: -40px;
+  height: 50px;
+  width: 100px;
+  left: 8px;
+  top: -55px;
 }
 
 .bubble-leave.bubble-leave-active {
+  height: 0px;
+  width: 0px;
+  left: 0px;
   top: 0px;
-  transition: top 300ms ease-in;
+  transition: all 300ms ease-in;
 }
