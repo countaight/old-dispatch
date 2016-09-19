@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Moment from 'moment';
 
 const K_SIZE = 18;
 
@@ -16,7 +17,7 @@ export default class MapMarker extends React.Component {
           transitionName={"bubble"}
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}>
-          {this.props.$hover ? <div key={this.props.key} className={"bubble"}><h1 className={"bubble-title"}>{this.props.title}</h1><p>{this.props.lastUpdated}</p></div> : ""}
+          {this.props.$hover ? <div key={this.props.key} className={"bubble"}><h1 className={"bubble-title"}>{this.props.title}</h1><p className={"bubble-text"}>Last Updated: {Moment(this.props.lastUpdated).calendar()}</p></div> : ""}
         </ReactCSSTransitionGroup>
         <div style={style}>
           <div style={innerStyle} />
@@ -61,5 +62,6 @@ const hoverStyle = {
   ...greatPlaceStyle,
   border: '2px solid #ddd',
   backgroundColor: '#669966',
+  zIndex: 1000,
 };
 

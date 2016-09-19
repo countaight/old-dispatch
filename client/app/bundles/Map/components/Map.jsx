@@ -57,7 +57,7 @@ export default class Map extends React.Component {
 			this.props.users.map((user) => {
 				let initialLat = parseFloat(JSON.parse(user.coordinates).initialLat);
 				let initialLong = parseFloat(JSON.parse(user.coordinates).initialLong);
-				 return <MapMarker key={user.id} lat={initialLat} lng={initialLong} text={user.name} />
+				 return <MapMarker key={user.id} lat={initialLat} lng={initialLong} title={user.name} lastUpdated={user.updated_at} />
 			})
 		)
 	}
