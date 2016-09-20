@@ -3,6 +3,7 @@ import GoogleMap from'google-map-react';
 
 import MapMarker from './MapMarker.jsx';
 
+
 export default class Map extends React.Component {
 	constructor (props) {
 		super(props);
@@ -48,6 +49,10 @@ export default class Map extends React.Component {
 		})
 	}
 
+	_handleSelected (key) {
+		console.log(key)
+	}
+
 	_setCenter (coords) {
 		this.setState({
 			initCenter: coords,
@@ -73,8 +78,9 @@ export default class Map extends React.Component {
 					<GoogleMap
 						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
 						center={this.state.initCenter}
-						zoom={this.state.zoom}
+						onChildMouseEnter={this._handleSelected}
 						options={this._getMapStyle}
+						zoom={this.state.zoom}
 					>
 						{this._renderMarkers()}
 					</GoogleMap>
