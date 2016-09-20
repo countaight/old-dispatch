@@ -1,7 +1,4 @@
 - if logged_in? && current_user.has_role?(:admin)
-	%ul
-		- @users.each do |user|
-			%li[user]= user.coordinates
 	.map-container
 		= react_component("MapApp", props: { users: @users, currentUser: current_user }, prerender: false)
 - else
