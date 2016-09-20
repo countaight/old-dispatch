@@ -8,7 +8,10 @@ export default class Map extends React.Component {
 		super(props);
 		this.currentUserCoords = JSON.parse(this.props.currentUser.coordinates)
 		this.state = {
-			initCenter: [parseFloat(this.currentUserCoords.initialLat), parseFloat(this.currentUserCoords.initialLong)],
+			initCenter: [
+										parseFloat(this.currentUserCoords.initialLat),
+										parseFloat(this.currentUserCoords.initialLong)
+									],
 			zoom: 9
 		}
 	}
@@ -64,18 +67,27 @@ export default class Map extends React.Component {
 
 	render () {
 		return (
-			<div style={{height: 400, width: '100%'}}>
-				<h1>Map with markers</h1>
-				<GoogleMap
-					bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
-					center={this.state.initCenter}
-					zoom={this.state.zoom}
-					options={this._getMapStyle}
-				>
-					{this._renderMarkers()}
-				</GoogleMap>
+			<div className={'react-map'}>
+				<h1 className={'map-title'}>Map with markers</h1>
+				<div className={'google-map-component'}>
+					<GoogleMap
+						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
+						center={this.state.initCenter}
+						zoom={this.state.zoom}
+						options={this._getMapStyle}
+					>
+						{this._renderMarkers()}
+					</GoogleMap>
+				</div>
+				<aside>
+					<ul>
+						<li>Want to see</li>
+						<li>If this indeed</li>
+						<li>works</li>
+					</ul>
+				</aside>
 				<hr />
-				<button onClick={this._getLocation.bind(this)}>My Location</button>
+				<button className={'locator-button'} onClick={this._getLocation.bind(this)}>My Location</button>
 			</div>
 		)
 	}
