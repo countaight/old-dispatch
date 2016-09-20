@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import GoogleMap from'google-map-react';
 
 import MapMarker from './MapMarker.jsx';
+import DriverList from './DriverList.jsx';
 
 
 export default class Map extends React.Component {
@@ -13,7 +14,8 @@ export default class Map extends React.Component {
 										parseFloat(this.currentUserCoords.initialLat),
 										parseFloat(this.currentUserCoords.initialLong)
 									],
-			zoom: 9
+			zoom: 9,
+			selectedKey: null
 		}
 	}
 
@@ -49,8 +51,13 @@ export default class Map extends React.Component {
 		})
 	}
 
-	_handleSelected (key) {
-		console.log(key)
+	_handleSelected (selectedKey) {
+		let newState = { ...this.state, selectedKey }
+		this.setState(newState);
+	}
+
+	_handleDeselect () {
+		this.setState({ ...this.state, selectedKey: null })
 	}
 
 	_setCenter (coords) {
@@ -78,20 +85,15 @@ export default class Map extends React.Component {
 					<GoogleMap
 						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
 						center={this.state.initCenter}
-						onChildMouseEnter={this._handleSelected}
+						onChildMouseEnter={this._handleSelected.bind(this)}
+						onChildMouseLeave={this._handleDeselect.bind(this)}
 						options={this._getMapStyle}
 						zoom={this.state.zoom}
 					>
 						{this._renderMarkers()}
 					</GoogleMap>
 				</div>
-				<aside>
-					<ul>
-						<li>Want to see</li>
-						<li>If this indeed</li>
-						<li>works</li>
-					</ul>
-				</aside>
+				<DriverList users={this.props.users} selected={this.state.selectedKey} />
 				<hr />
 				<button className={'locator-button'} onClick={this._getLocation.bind(this)}>My Location</button>
 			</div>
