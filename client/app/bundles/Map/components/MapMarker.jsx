@@ -17,7 +17,7 @@ export default class MapMarker extends React.Component {
           transitionName={"bubble"}
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}>
-          {this.props.$hover ? <div key={this.props.key} className={"bubble"}><h1 className={"bubble-title"}>{this.props.title}</h1><p className={"bubble-text"}>Last Updated: {Moment(this.props.lastUpdated).calendar()}</p></div> : ""}
+          {this.props.$hover || this.props.id == this.props.selectedKey ? <div className={"bubble"}><h1 className={"bubble-title"}>{this.props.title}</h1><p className={"bubble-text"}>Last Updated: {Moment(this.props.lastUpdated).calendar()}</p></div> : ""}
         </ReactCSSTransitionGroup>
         <div style={style}>
           <div style={innerStyle} />

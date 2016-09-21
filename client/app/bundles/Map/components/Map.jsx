@@ -72,7 +72,7 @@ export default class Map extends React.Component {
 			this.props.users.map((user) => {
 				let initialLat = parseFloat(JSON.parse(user.coordinates).initialLat);
 				let initialLong = parseFloat(JSON.parse(user.coordinates).initialLong);
-				 return <MapMarker key={user.id} lat={initialLat} lng={initialLong} title={user.name} lastUpdated={user.updated_at} />
+				 return <MapMarker key={user.id} lat={initialLat} lng={initialLong} title={user.name} lastUpdated={user.updated_at} selectedKey={this.state.selectedKey} id={user.id}/>
 			})
 		)
 	}
@@ -85,6 +85,7 @@ export default class Map extends React.Component {
 					<GoogleMap
 						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
 						center={this.state.initCenter}
+						onChange={({zoom}) => this.setState({zoom})}
 						onChildMouseEnter={this._handleSelected.bind(this)}
 						onChildMouseLeave={this._handleDeselect.bind(this)}
 						options={this._getMapStyle}
@@ -93,7 +94,13 @@ export default class Map extends React.Component {
 						{this._renderMarkers()}
 					</GoogleMap>
 				</div>
-				<DriverList users={this.props.users} selected={this.state.selectedKey} />
+				<DriverList
+					_handleDeselect={this._handleDeselect.bind(this)}
+					_handleSelected={this._handleSelected.bind(this)} 
+					_setCenter={this._setCenter.bind(this)}
+					selected={this.state.selectedKey}
+					users={this.props.users}
+				/>
 				<hr />
 				<button className={'locator-button'} onClick={this._getLocation.bind(this)}>My Location</button>
 			</div>
