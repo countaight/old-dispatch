@@ -107,7 +107,7 @@ export default class Map extends React.Component {
 
 		const size = {
 		  width: 640, // Map width in pixels
-		  height: 380, // Map height in pixels
+		  height: 400, // Map height in pixels
 		};
 
 		const {center, zoom} = fitBounds(bounds, size);
