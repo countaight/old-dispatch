@@ -2,6 +2,10 @@ import React, { PropTypes } from 'react';
 import Moment from 'moment';
 
 export default class Map extends React.Component {
+	_handleClick () {
+		this.props._setZoom(12);
+	}
+
 	_handleSelection (key, coords) {
 		this.props._handleSelected(key);
 		this.props._setCenter(coords);
@@ -16,6 +20,7 @@ export default class Map extends React.Component {
 				 	<div
 				 		key={user.id}
 				 		className={selected ? "selected" : "not-selected"}
+				 		onClick={this._handleClick.bind(this)}
 				 		onMouseEnter={this._handleSelection.bind(this, `${user.id}`, [initialLat, initialLong])}
 				 		onMouseLeave={this.props._handleDeselect.bind(this)}
 				 	>
