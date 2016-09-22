@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import GoogleMap from'google-map-react';
+import { fitBounds } from 'google-map-react/utils';
+import _ from 'lodash';
 
 import MapMarker from './MapMarker.jsx';
 import DriverList from './DriverList.jsx';
@@ -35,6 +37,13 @@ export default class Map extends React.Component {
 		                { saturation: 50 }
 		              ]
 		            },{
+		            	featureType: 'road.highway',
+		            	elementType: 'geometry',
+		            	stylers: [
+		            		{ hue: '#ffffb2' },
+		            		{ saturation: 80 }
+		            	]
+		            },{
 		              featureType: 'poi.business',
 		              elementType: 'labels',
 		              stylers: [
@@ -47,7 +56,8 @@ export default class Map extends React.Component {
 
 	_getLocation () {
 		navigator.geolocation.getCurrentPosition((e) => {
-			this._setCenter([e.coords.latitude, e.coords.longitude])
+			this._setCenter([e.coords.latitude, e.coords.longitude]);
+			this._setZoom(12);
 		})
 	}
 
@@ -60,11 +70,50 @@ export default class Map extends React.Component {
 		this.setState({ ...this.state, selectedKey: null })
 	}
 
+	_handleChange ({center, zoom}) {
+		this._setCenter(center);
+		this._setZoom(zoom);
+	}
+
 	_setCenter (coords) {
 		this.setState({
-			initCenter: coords,
-			zoom: 12
+			initCenter: coords
 		})
+	}
+
+	_setZoom (zoom) {
+		this.setState({
+			zoom
+		})
+	}
+
+	_zoomToAll () {
+		const coordinates = _.map(this.props.users, (user) => { return JSON.parse(user.coordinates) })
+		
+		const sortLat = _.orderBy(coordinates, ['initialLat'], ['desc'])
+
+		const sortLng = _.orderBy(coordinates, ['initialLong'], ['asc'])
+
+		const bounds = {
+		  nw: {
+		    lat: parseFloat(_.first(sortLat).initialLat),
+		    lng: parseFloat(_.first(sortLng).initialLong)
+		  },
+		  se: {
+		    lat: parseFloat(_.last(sortLat).initialLat),
+		    lng: parseFloat(_.last(sortLng).initialLong)
+		  }
+		};
+
+		const size = {
+		  width: 640, // Map width in pixels
+		  height: 380, // Map height in pixels
+		};
+
+		const {center, zoom} = fitBounds(bounds, size);
+
+		this._setCenter(center);
+		this._setZoom(zoom);
 	}
 
 	_renderMarkers () {
@@ -85,9 +134,10 @@ export default class Map extends React.Component {
 					<GoogleMap
 						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
 						center={this.state.initCenter}
-						onChange={({zoom}) => this.setState({zoom})}
+						onChange={this._handleChange.bind(this)}
 						onChildMouseEnter={this._handleSelected.bind(this)}
 						onChildMouseLeave={this._handleDeselect.bind(this)}
+						onClick={this._setCenter.bind(this)}
 						options={this._getMapStyle}
 						zoom={this.state.zoom}
 					>
@@ -98,9 +148,11 @@ export default class Map extends React.Component {
 					_handleDeselect={this._handleDeselect.bind(this)}
 					_handleSelected={this._handleSelected.bind(this)} 
 					_setCenter={this._setCenter.bind(this)}
+					_setZoom={this._setZoom.bind(this)}
 					selected={this.state.selectedKey}
 					users={this.props.users}
 				/>
+				<button onClick={this._zoomToAll.bind(this)}>Fit All</button>
 				<hr />
 				<button className={'locator-button'} onClick={this._getLocation.bind(this)}>My Location</button>
 			</div>
