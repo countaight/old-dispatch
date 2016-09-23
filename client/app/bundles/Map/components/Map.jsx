@@ -92,7 +92,7 @@ export default class Map extends React.Component {
 		
 		const sortLat = _.orderBy(coordinates, ['initialLat'], ['desc'])
 
-		const sortLng = _.orderBy(coordinates, ['initialLong'], ['asc'])
+		const sortLng = _.orderBy(coordinates, ['initialLong'], ['desc'])
 
 		const bounds = {
 		  nw: {
