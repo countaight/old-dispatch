@@ -17,8 +17,50 @@ export default class Map extends React.Component {
 										parseFloat(this.currentUserCoords.initialLong)
 									],
 			zoom: 9,
-			selectedKey: null
+			selectedKey: null,
+			ws: {},
+			loadedUsers: this.props.users,
 		}
+	}
+
+	componentWillMount () {
+		console.log(this.state.loadedUsers)
+		var uri = "ws://" + window.document.location.host + "/mapsocket";
+		var ws = new WebSocket(uri);
+
+		this.setState({ ...this.state, ws });
+
+		ws.onopen = (e) => {
+			console.log('Connected');
+			ws.send(this.props.currentUser.name + "'s Map has connected!");
+		};
+
+		ws.onmessage = (e) => {
+			const findJSON = e.data.search("{");
+			findJSON == 0 ? this._updateUser(JSON.parse(e.data)) : console.log(e.data);
+		}
+	}
+
+	componentWillUnmount () {
+		this.state.ws.close();
+		this.setState({ ...this.state, ws: {} })
+	}
+
+	_updateUser (loadUser) {
+		const { loadedUsers } = this.state;
+
+		const editUser = loadedUsers.filter((user) => user.id == loadUser.id)[0];
+
+		const indexUser = loadedUsers.indexOf(editUser);
+
+		const editedUser = {
+			...editUser,
+			coordinates: JSON.stringify(loadUser.coordinates)
+		};
+
+		loadedUsers[indexUser] = editedUser;
+
+		this.setState({ ...this.state, loadedUsers })
 	}
 
 	_getMapStyle (maps) {
@@ -118,7 +160,7 @@ export default class Map extends React.Component {
 
 	_renderMarkers () {
 		return (
-			this.props.users.map((user) => {
+			this.state.loadedUsers.map((user) => {
 				let initialLat = parseFloat(JSON.parse(user.coordinates).initialLat);
 				let initialLong = parseFloat(JSON.parse(user.coordinates).initialLong);
 				 return <MapMarker key={user.id} lat={initialLat} lng={initialLong} title={user.name} lastUpdated={user.updated_at} selectedKey={this.state.selectedKey} id={user.id}/>
@@ -150,7 +192,7 @@ export default class Map extends React.Component {
 					_setCenter={this._setCenter.bind(this)}
 					_setZoom={this._setZoom.bind(this)}
 					selected={this.state.selectedKey}
-					users={this.props.users}
+					users={this.state.loadedUsers}
 				/>
 				<button onClick={this._zoomToAll.bind(this)}>Fit All</button>
 				<hr />

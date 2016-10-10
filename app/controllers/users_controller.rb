@@ -30,6 +30,7 @@ class UsersController < ApplicationController
 
 	def testPost
 		user = User.find(params[:userId])
+		p user
 		user.coordinates = params[:coordinates].to_json
 
 		if user.save
