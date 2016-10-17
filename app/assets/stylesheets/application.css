@@ -71,7 +71,7 @@ ul.main-nav li {
 #staff:hover, #drivers:hover, #client:hover {
 	border-bottom-style: solid;
 	border-bottom-width: 5px;
-	border-color: rgb(100, 200, 115);
+	border-color: #006838;
 	box-sizing: border-box;
 }
 
