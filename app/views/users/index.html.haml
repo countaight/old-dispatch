@@ -2,4 +2,4 @@
 	.map-container
 		= react_component("MapApp", props: { users: @users, currentUser: current_user }, prerender: false)
 - else
-	%h2 You don't have permission to view this page.
+	= render partial: "roles/no_role_view"

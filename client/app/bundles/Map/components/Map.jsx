@@ -25,7 +25,7 @@ export default class Map extends React.Component {
 
 	componentWillMount () {
 		console.log(this.state.loadedUsers)
-		var uri = "ws://" + window.document.location.host + "/mapsocket";
+		var uri = "wss://" + window.document.location.host + "/mapsocket";
 		var ws = new WebSocket(uri);
 
 		this.setState({ ...this.state, ws });
