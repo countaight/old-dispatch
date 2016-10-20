@@ -8,5 +8,6 @@
 		- elsif current_user.has_role? :staff
 			= render 'roles/staff_view'
 - else
-	%h4 You are not logged in!
-	= link_to "Login", login_url
+	.container
+		%p.warning You are not logged in!
+		%p.warning= link_to "Login", login_url
