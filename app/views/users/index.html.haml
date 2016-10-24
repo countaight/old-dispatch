@@ -1,4 +1,4 @@
-- if logged_in? && current_user.has_role?(:admin)
+- if logged_in?
 	.map-container
 		= react_component("MapApp", props: { users: @users, currentUser: current_user }, prerender: false)
 - else
