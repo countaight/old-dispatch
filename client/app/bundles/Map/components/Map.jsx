@@ -8,6 +8,8 @@ import DriverList from './DriverList.jsx';
 
 
 export default class Map extends React.Component {
+	ws: null;
+
 	constructor (props) {
 		super(props);
 		this.currentUserCoords = JSON.parse(this.props.currentUser.coordinates)
@@ -18,17 +20,15 @@ export default class Map extends React.Component {
 									],
 			zoom: 9,
 			selectedKey: null,
-			ws: {},
 			loadedUsers: this.props.users,
 		}
 	}
 
 	componentWillMount () {
-		console.log(this.state.loadedUsers)
 		var uri = "wss://" + window.document.location.host + "/mapsocket";
 		var ws = new WebSocket(uri);
 
-		this.setState({ ...this.state, ws });
+		this.ws = ws
 
 		ws.onopen = (e) => {
 			console.log('Connected');
@@ -42,8 +42,8 @@ export default class Map extends React.Component {
 	}
 
 	componentWillUnmount () {
-		this.state.ws.close();
-		this.setState({ ...this.state, ws: {} })
+		this.ws.close();
+		this.ws = null;
 	}
 
 	_updateUser (loadUser) {
