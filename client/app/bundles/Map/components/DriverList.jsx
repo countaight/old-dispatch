@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Moment from 'moment';
 
-export default class Map extends React.Component {
+export default class DriverList extends React.Component {
 	static propTypes = {
 		_setZoom: PropTypes.func.isRequired,
 		_handleSelected: PropTypes.func.isRequired,

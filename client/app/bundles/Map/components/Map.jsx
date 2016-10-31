@@ -8,6 +8,11 @@ import DriverList from './DriverList.jsx';
 
 
 export default class Map extends React.Component {
+	static proptypes = {
+		currentUser: PropTypes.object.isRequired,
+		users: PropTypes.array.isRequired,
+	}
+
 	ws: null;
 
 	constructor (props) {
@@ -66,33 +71,33 @@ export default class Map extends React.Component {
 	_getMapStyle (maps) {
 		return {
 			styles: [
-		            {
-		              featureType: 'all',
-		              stylers: [
-		                { saturation: -100 }
-		              ]
-		            },{
-		              featureType: 'road.arterial',
-		              elementType: 'geometry',
-		              stylers: [
-		                { hue: '#00ffee' },
-		                { saturation: 50 }
-		              ]
-		            },{
-		            	featureType: 'road.highway',
-		            	elementType: 'geometry',
-		            	stylers: [
-		            		{ hue: '#ffffb2' },
-		            		{ saturation: 80 }
-		            	]
-		            },{
-		              featureType: 'poi.business',
-		              elementType: 'labels',
-		              stylers: [
-		                { visibility: 'off' }
-		              ]
-		            }
-		          ]
+								{
+									featureType: 'all',
+									stylers: [
+										{ saturation: -100 }
+									]
+								},{
+									featureType: 'road.arterial',
+									elementType: 'geometry',
+									stylers: [
+										{ hue: '#00ffee' },
+										{ saturation: 50 }
+									]
+								},{
+									featureType: 'road.highway',
+									elementType: 'geometry',
+									stylers: [
+										{ hue: '#ffffb2' },
+										{ saturation: 80 }
+									]
+								},{
+									featureType: 'poi.business',
+									elementType: 'labels',
+									stylers: [
+										{ visibility: 'off' }
+									]
+								}
+							]
 		}
 	}
 
@@ -137,19 +142,19 @@ export default class Map extends React.Component {
 		const sortLng = _.orderBy(coordinates, ['initialLong'], ['desc'])
 
 		const bounds = {
-		  nw: {
-		    lat: parseFloat(_.first(sortLat).initialLat),
-		    lng: parseFloat(_.first(sortLng).initialLong)
-		  },
-		  se: {
-		    lat: parseFloat(_.last(sortLat).initialLat),
-		    lng: parseFloat(_.last(sortLng).initialLong)
-		  }
+			nw: {
+				lat: parseFloat(_.first(sortLat).initialLat),
+				lng: parseFloat(_.first(sortLng).initialLong)
+			},
+			se: {
+				lat: parseFloat(_.last(sortLat).initialLat),
+				lng: parseFloat(_.last(sortLng).initialLong)
+			}
 		};
 
 		const size = {
-		  width: 640, // Map width in pixels
-		  height: 400, // Map height in pixels
+			width: 640, // Map width in pixels
+			height: 400, // Map height in pixels
 		};
 
 		const {center, zoom} = fitBounds(bounds, size);
@@ -163,7 +168,7 @@ export default class Map extends React.Component {
 			this.state.loadedUsers.map((user) => {
 				let initialLat = parseFloat(JSON.parse(user.coordinates).initialLat);
 				let initialLong = parseFloat(JSON.parse(user.coordinates).initialLong);
-				 return <MapMarker key={user.id} lat={initialLat} lng={initialLong} title={user.name} lastUpdated={user.updated_at} selectedKey={this.state.selectedKey} id={user.id}/>
+				return <MapMarker key={user.id} lat={initialLat} lng={initialLong} title={user.name} lastUpdated={user.updated_at} selectedKey={this.state.selectedKey} id={user.id}/>
 			})
 		)
 	}
