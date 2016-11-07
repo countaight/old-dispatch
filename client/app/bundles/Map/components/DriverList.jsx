@@ -8,7 +8,7 @@ export default class DriverList extends React.Component {
 		_setCenter: PropTypes.func.isRequired,
 		users: PropTypes.array.isRequired,
 		_handleDeselect: PropTypes.func.isRequired,
-		selected: PropTypes.int.isRequired
+		selected: PropTypes.string
 	}
 
 	_handleClick () {

@@ -20,9 +20,9 @@ export default class Map extends React.Component {
 		this.currentUserCoords = JSON.parse(this.props.currentUser.coordinates)
 		this.state = {
 			initCenter: [
-										parseFloat(this.currentUserCoords.initialLat),
-										parseFloat(this.currentUserCoords.initialLong)
-									],
+						parseFloat(this.currentUserCoords.initialLat),
+						parseFloat(this.currentUserCoords.initialLong)
+						],
 			zoom: 9,
 			selectedKey: null,
 			loadedUsers: this.props.users,
