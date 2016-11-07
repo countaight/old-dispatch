@@ -1,7 +1,16 @@
 import React, { PropTypes } from 'react';
 import Moment from 'moment';
 
-export default class Map extends React.Component {
+export default class DriverList extends React.Component {
+	static propTypes = {
+		_setZoom: PropTypes.func.isRequired,
+		_handleSelected: PropTypes.func.isRequired,
+		_setCenter: PropTypes.func.isRequired,
+		users: PropTypes.array.isRequired,
+		_handleDeselect: PropTypes.func.isRequired,
+		selected: PropTypes.string
+	}
+
 	_handleClick () {
 		this.props._setZoom(12);
 	}
@@ -16,19 +25,19 @@ export default class Map extends React.Component {
 				let initialLat = parseFloat(JSON.parse(user.coordinates).initialLat);
 				let initialLong = parseFloat(JSON.parse(user.coordinates).initialLong);
 				let selected = this.props.selected == user.id
-				 return (
-				 	<div
-				 		key={user.id}
-				 		className={selected ? "selected" : "not-selected"}
-				 		onClick={this._handleClick.bind(this)}
-				 		onMouseEnter={this._handleSelection.bind(this, `${user.id}`, [initialLat, initialLong])}
-				 		onMouseLeave={this.props._handleDeselect.bind(this)}
-				 	>
-				 		<h1>{user.name}</h1>
-				 		<p>Latitude: {initialLat} Longitude: {initialLong}</p>
-				 		<p>Last Updated: {Moment(user.updated_at).calendar()}</p>
-				 	</div>
-				 )
+				return (
+					<div
+						key={user.id}
+						className={selected ? "selected" : "not-selected"}
+						onClick={this._handleClick.bind(this)}
+						onMouseEnter={this._handleSelection.bind(this, `${user.id}`, [initialLat, initialLong])}
+						onMouseLeave={this.props._handleDeselect.bind(this)}
+					>
+						<h1>{user.name}</h1>
+						<p>Latitude: {initialLat} Longitude: {initialLong}</p>
+						<p>Last Updated: {Moment(user.updated_at).calendar()}</p>
+					</div>
+				)
 			})
 		)
 	}

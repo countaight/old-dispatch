@@ -5,6 +5,14 @@ import Moment from 'moment';
 const K_SIZE = 18;
 
 export default class MapMarker extends React.Component {
+  static propTypes = {
+    $hover: PropTypes.bool,
+    id: PropTypes.number.isRequired,
+    selectedKey: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    lastUpdated: PropTypes.string.isRequired
+  }
+
   constructor (props) {
     super(props);
   }
