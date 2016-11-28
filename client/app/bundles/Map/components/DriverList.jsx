@@ -22,19 +22,19 @@ export default class DriverList extends React.Component {
 	_renderDrivers () {
 		return (
 			this.props.users.map((user) => {
-				let initialLat = parseFloat(JSON.parse(user.coordinates).initialLat);
-				let initialLong = parseFloat(JSON.parse(user.coordinates).initialLong);
+				let lat = parseFloat(JSON.parse(user.coordinates).lat);
+				let lng = parseFloat(JSON.parse(user.coordinates).lng);
 				let selected = this.props.selected == user.id
 				return (
 					<div
 						key={user.id}
 						className={selected ? "selected" : "not-selected"}
 						onClick={this._handleClick.bind(this)}
-						onMouseEnter={this._handleSelection.bind(this, `${user.id}`, [initialLat, initialLong])}
+						onMouseEnter={this._handleSelection.bind(this, `${user.id}`, [lat, lng])}
 						onMouseLeave={this.props._handleDeselect.bind(this)}
 					>
 						<h1>{user.name}</h1>
-						<p>Latitude: {initialLat} Longitude: {initialLong}</p>
+						<p>Latitude: {lat} Longitude: {lng}</p>
 						<p>Last Updated: {Moment(user.updated_at).calendar()}</p>
 					</div>
 				)

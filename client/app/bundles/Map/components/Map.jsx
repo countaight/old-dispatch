@@ -20,8 +20,8 @@ export default class Map extends React.Component {
 		this.currentUserCoords = JSON.parse(this.props.currentUser.coordinates)
 		this.state = {
 			initCenter: [
-						parseFloat(this.currentUserCoords.initialLat),
-						parseFloat(this.currentUserCoords.initialLong)
+						parseFloat(this.currentUserCoords.lat),
+						parseFloat(this.currentUserCoords.lng)
 						],
 			zoom: 9,
 			selectedKey: null,
@@ -137,18 +137,18 @@ export default class Map extends React.Component {
 	_zoomToAll () {
 		const coordinates = _.map(this.props.users, (user) => { return JSON.parse(user.coordinates) })
 		
-		const sortLat = _.orderBy(coordinates, ['initialLat'], ['desc'])
+		const sortLat = _.orderBy(coordinates, ['lat'], ['desc'])
 
-		const sortLng = _.orderBy(coordinates, ['initialLong'], ['desc'])
+		const sortLng = _.orderBy(coordinates, ['lng'], ['desc'])
 
 		const bounds = {
 			nw: {
-				lat: parseFloat(_.first(sortLat).initialLat),
-				lng: parseFloat(_.first(sortLng).initialLong)
+				lat: parseFloat(_.first(sortLat).lat),
+				lng: parseFloat(_.first(sortLng).lng)
 			},
 			se: {
-				lat: parseFloat(_.last(sortLat).initialLat),
-				lng: parseFloat(_.last(sortLng).initialLong)
+				lat: parseFloat(_.last(sortLat).lat),
+				lng: parseFloat(_.last(sortLng).lng)
 			}
 		};
 
@@ -166,9 +166,9 @@ export default class Map extends React.Component {
 	_renderMarkers () {
 		return (
 			this.state.loadedUsers.map((user) => {
-				let initialLat = parseFloat(JSON.parse(user.coordinates).initialLat);
-				let initialLong = parseFloat(JSON.parse(user.coordinates).initialLong);
-				return <MapMarker key={user.id} lat={initialLat} lng={initialLong} title={user.name} lastUpdated={user.updated_at} selectedKey={this.state.selectedKey} id={user.id}/>
+				let lat = parseFloat(JSON.parse(user.coordinates).lat);
+				let lng = parseFloat(JSON.parse(user.coordinates).lng);
+				return <MapMarker key={user.id} lat={lat} lng={lng} title={user.name} lastUpdated={user.updated_at} selectedKey={this.state.selectedKey} id={user.id}/>
 			})
 		)
 	}
