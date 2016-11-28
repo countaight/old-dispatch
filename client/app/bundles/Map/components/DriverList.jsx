@@ -22,8 +22,8 @@ export default class DriverList extends React.Component {
 	_renderDrivers () {
 		return (
 			this.props.users.map((user) => {
-				let lat = parseFloat(JSON.parse(user.coordinates).lat);
-				let lng = parseFloat(JSON.parse(user.coordinates).lng);
+				let lat = user.coordinates.lat;
+				let lng = user.coordinates.lng;
 				let selected = this.props.selected == user.id
 				return (
 					<div

@@ -17,11 +17,11 @@ export default class Map extends React.Component {
 
 	constructor (props) {
 		super(props);
-		this.currentUserCoords = JSON.parse(this.props.currentUser.coordinates)
+		this.currentUserCoords = this.props.currentUser.coordinates
 		this.state = {
 			initCenter: [
-						parseFloat(this.currentUserCoords.lat),
-						parseFloat(this.currentUserCoords.lng)
+						this.currentUserCoords.lat,
+						this.currentUserCoords.lng
 						],
 			zoom: 9,
 			selectedKey: null,
@@ -29,7 +29,7 @@ export default class Map extends React.Component {
 		}
 	}
 
-	componentWillMount () {
+	componentDidMount () {
 		var uri = "ws://" + window.document.location.host + "/mapsocket";
 		var ws = new WebSocket(uri);
 
@@ -60,7 +60,8 @@ export default class Map extends React.Component {
 
 		const editedUser = {
 			...editUser,
-			coordinates: JSON.stringify(loadUser.coordinates)
+			coordinates: loadUser.coordinates,
+			updated_at: loadUser.updated_at
 		};
 
 		loadedUsers[indexUser] = editedUser;
@@ -135,20 +136,20 @@ export default class Map extends React.Component {
 	}
 
 	_zoomToAll () {
-		const coordinates = _.map(this.props.users, (user) => { return JSON.parse(user.coordinates) })
+		const coordinates = _.map(this.props.users, (user) => { return user.coordinates })
 		
 		const sortLat = _.orderBy(coordinates, ['lat'], ['desc'])
 
-		const sortLng = _.orderBy(coordinates, ['lng'], ['desc'])
+		const sortLng = _.orderBy(coordinates, ['lng'], ['asc'])
 
 		const bounds = {
 			nw: {
-				lat: parseFloat(_.first(sortLat).lat),
-				lng: parseFloat(_.first(sortLng).lng)
+				lat: _.first(sortLat).lat,
+				lng: _.first(sortLng).lng
 			},
 			se: {
-				lat: parseFloat(_.last(sortLat).lat),
-				lng: parseFloat(_.last(sortLng).lng)
+				lat: _.last(sortLat).lat,
+				lng: _.last(sortLng).lng
 			}
 		};
 
@@ -166,8 +167,8 @@ export default class Map extends React.Component {
 	_renderMarkers () {
 		return (
 			this.state.loadedUsers.map((user) => {
-				let lat = parseFloat(JSON.parse(user.coordinates).lat);
-				let lng = parseFloat(JSON.parse(user.coordinates).lng);
+				let lat = user.coordinates.lat;
+				let lng = user.coordinates.lng;
 				return <MapMarker key={user.id} lat={lat} lng={lng} title={user.name} lastUpdated={user.updated_at} selectedKey={this.state.selectedKey} id={user.id}/>
 			})
 		)
