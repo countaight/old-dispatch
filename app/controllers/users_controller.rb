@@ -34,8 +34,7 @@ class UsersController < ApplicationController
 		respond_to do |format|
 			format.json do
 				user = User.find(params[:userId])
-				user.coordinates = params[:coordinates].to_json
-
+				user.coordinates = params[:coordinates]
 				if user.save
 					render json: { body: user.coordinates }
 				else
