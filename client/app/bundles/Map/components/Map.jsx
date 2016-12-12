@@ -15,6 +15,16 @@ export default class Map extends React.Component {
 
 	ws: null;
 
+	onPlacesChanged = () => {
+  	const places = this.searchBox.getPlaces();
+  	const place = places[0].geometry.location.toJSON()
+  	const { name, place_id } = places[0];
+
+  	const newState = this.state.loadedUsers.concat({name, id: place_id, coordinates: {lat: place.lat, lng: place.lng}, updated_at: Date.now()})
+
+  	this.setState({...this.state, loadedUsers: newState})
+  }
+
 	constructor (props) {
 		super(props);
 		this.currentUserCoords = this.props.currentUser.coordinates
@@ -30,7 +40,7 @@ export default class Map extends React.Component {
 	}
 
 	componentDidMount () {
-		var uri = "wss://" + window.document.location.host + "/mapsocket";
+		var uri = "ws://" + window.document.location.host + "/mapsocket";
 		var ws = new WebSocket(uri);
 
 		this.ws = ws
@@ -44,11 +54,16 @@ export default class Map extends React.Component {
 			const findJSON = e.data.search("{");
 			findJSON == 0 ? this._updateUser(JSON.parse(e.data)) : console.log(e.data);
 		}
+
+		const input = this.refs.input
+		this.searchBox = new google.maps.places.SearchBox(input);
+		this.searchBox.addListener('places_changed', this.onPlacesChanged)
 	}
 
 	componentWillUnmount () {
 		this.ws.close();
 		this.ws = null;
+		this.searchBox.removeListener('places_changed', this.onPlacesChanged);
 	}
 
 	_updateUser (loadUser) {
@@ -178,6 +193,7 @@ export default class Map extends React.Component {
 		return (
 			<div className={'react-map'}>
 				<h1 className={'map-title'}>Map with markers</h1>
+				<input ref="input" type="text"/>
 				<div className={'google-map-component'}>
 					<GoogleMap
 						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
