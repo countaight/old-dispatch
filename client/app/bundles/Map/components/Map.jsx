@@ -17,10 +17,29 @@ export default class Map extends React.Component {
 
 	onPlacesChanged = () => {
   	const places = this.searchBox.getPlaces();
-  	const place = places[0].geometry.location.toJSON()
+  	const place = places[0].geometry.location.toJSON();
+  	console.log(places[0]);
   	const { name, place_id } = places[0];
 
-  	const newState = this.state.loadedUsers.concat({name, id: place_id, coordinates: {lat: place.lat, lng: place.lng}, updated_at: Date.now()})
+  	fetch('http://localhost:3000/admin/places', {
+  		method: 'POST',
+  		body: JSON.stringify(places[0]),
+  		headers: {
+  			'Accept': 'application/json',
+  			'Content-Type': 'application/json',
+  		}
+  	})
+  	.then((e) => console.log(e))
+
+  	const newState = this.state.loadedUsers.concat({
+  		name,
+  		id: place_id,
+  		coordinates: {
+  			lat: place.lat,
+  			lng: place.lng
+  		},
+  		updated_at: Date.now()
+  	});
 
   	this.setState({...this.state, loadedUsers: newState})
   }
@@ -200,9 +219,10 @@ export default class Map extends React.Component {
 						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
 						center={this.state.initCenter}
 						onChange={this._handleChange.bind(this)}
-						onChildMouseEnter={this._handleSelected.bind(this)}
-						onChildMouseLeave={this._handleDeselect.bind(this)}
+						//onChildMouseEnter={this._handleSelected.bind(this)}
+						//onChildMouseLeave={this._handleDeselect.bind(this)}
 						onClick={this._setCenter.bind(this)}
+						onChildClick={this._handleSelected.bind(this)}
 						options={this._getMapStyle}
 						zoom={this.state.zoom}
 					>
