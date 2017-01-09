@@ -7,8 +7,8 @@ class Admin::PlacesController < ApplicationController
 	def create
 		respond_to do |format|
 			format.json do
-				p place_params
-				render json: { body: "Sent"}
+				p params
+				render json: { body: params }
 			end
 			format.html { p "Sent via HTML"}
 		end
