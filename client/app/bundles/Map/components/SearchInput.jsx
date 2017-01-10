@@ -9,7 +9,7 @@ export default class SearchInput extends React.Component {
 
 		fetch('http://localhost:3000/admin/places', {
 			method: 'POST',
-			body: JSON.stringify({name, place_id, place, user_id: this.props.userID}),
+			body: JSON.stringify({name, place_id, place, user_id: this.props.userID, pu_del: this.state.radioButton}),
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
@@ -19,6 +19,14 @@ export default class SearchInput extends React.Component {
 		.then((respJSON) => console.log(respJSON));
 
 		this.refs.input.value = "";
+	 }
+
+	 constructor (props) {
+	 	super(props);
+	 	this.state = {
+	 		focused: false,
+	 		radioButton: "PU"
+	 	}
 	 }
 
 	 componentDidMount () {
@@ -33,6 +41,31 @@ export default class SearchInput extends React.Component {
 	 }
 
 	 render () {
-	 	return <input key={this.props.userID} placeholder="Enter P/U or Delivery" ref="input" type="text"/>
+	 	return (
+	 		<form ref="locForm" className={this.state.focused ? "form_focused" : "form_unfocused"} onFocus={() => this.setState({focused: true})} onBlur={() => this.setState({focused: false})} onSubmit={(e) => e.preventDefault()}>
+		 		<input
+		 			key={this.props.userID}
+		 			placeholder="Add Pick-up or Delivery"
+		 			ref="input"
+		 			type="text"
+		 		/>
+		 		<div className="radio-button">
+			 		<input
+			 			value="PU"
+			 			type="radio"
+			 			checked={this.state.radioButton === "PU"}
+			 			onChange={() => this.setState({radioButton: "PU"})}
+			 		/><label>Pick-up</label>
+			 	</div>
+			 	<div className="radio-button">
+			 		<input
+			 			value="DEL"
+			 			type="radio"
+			 			checked={this.state.radioButton === "DEL"}
+			 			onChange={() => this.setState({radioButton: "DEL"})}
+			 		/><label>Delivery</label>
+			 	</div>
+		 	</form>
+	 	)
 	 }
 }

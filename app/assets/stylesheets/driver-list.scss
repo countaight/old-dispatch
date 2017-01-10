@@ -12,3 +12,41 @@
 	transition: all 1000ms;
 	overflow: hidden;
 }
+
+form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	input[type="text"] {
+		flex: 1 100%;
+	}
+
+	.radio-button {
+		margin-top: 5px;
+		display: flex;
+		justify-content: flex-start;
+		flex: 1 50%;
+
+		input {
+			flex: 1 15%;
+		}
+
+		label {
+			flex: 3 90%;
+			text-align: left;
+		}
+	}
+}
+
+.form_unfocused {
+	height: 25px;
+	overflow: hidden;
+	transition: all 0.5s;
+}
+
+.form_focused {
+	height: 50px;
+	overflow: hidden;
+	transition: all 0.5s;
+}
