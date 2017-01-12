@@ -166,9 +166,9 @@ export default class Map extends React.Component {
 	_renderMarkers () {
 		return (
 			this.state.loadedUsers.map((user) => {
-				let lat = user.coordinates.lat;
-				let lng = user.coordinates.lng;
-				return <MapMarker key={user.id} lat={lat} lng={lng} title={user.name} lastUpdated={user.updated_at} selectedKey={this.state.selectedKey} id={user.id}/>
+				let lat = user.user.coordinates.lat;
+				let lng = user.user.coordinates.lng;
+				return <MapMarker key={user.user.id} lat={lat} lng={lng} title={user.user.name} lastUpdated={user.user.updated_at} selectedKey={this.state.selectedKey} id={user.user.id}/>
 			})
 		)
 	}

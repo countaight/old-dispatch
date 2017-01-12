@@ -4,7 +4,11 @@ class UsersController < ApplicationController
 	skip_authorize_resource :only => :testPost
 
 	def index
-		@users = User.all
+		@users = []
+		User.all.each do |user|
+			@users << {user: user, places: user.places}
+		end
+		@users
 	end
 
 	def show

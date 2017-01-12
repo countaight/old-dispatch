@@ -1,7 +1,7 @@
 .map-container {
 	position: relative;
 	width: 80%;
-	margin: 0 auto;
+	margin: 85px auto;
 }
 
 .react-map {
@@ -19,14 +19,14 @@
 
 .google-map-component {
   flex: 1 1 75%;
-  height: 400px;
+  height: 600px;
 }
 
 aside {
   flex: 1 1 25%;
   background-color: #ddd;
-  height: 400px;
-  overflow: hidden;
+  height: 600px;
+  overflow: scroll;
 }
 
 hr {
