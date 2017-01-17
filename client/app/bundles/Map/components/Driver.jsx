@@ -4,6 +4,14 @@ import Moment from 'moment';
 import SearchInput from './SearchInput.jsx';
 
 export default class Driver extends React.Component {
+	static propTypes = {
+		user: PropTypes.object.isRequired,
+		places: PropTypes.object,
+		_setZoom: PropTypes.func,
+		_handleSelected: PropTypes.func,
+		_setCenter: PropTypes.func
+	}
+
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -43,7 +51,7 @@ export default class Driver extends React.Component {
 				<SearchInput userID={user.id}/>
 				<ul>
 					{places.map((place) => {
-						return <li key={Math.random()}>{place.name}</li>
+						return <li onClick={() => console.log(place.name)} key={Math.random()}>{place.name}</li>
 					})}
 				</ul>
 			</div>

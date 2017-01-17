@@ -7,7 +7,7 @@ import MapMarker from './MapMarker.jsx';
 import DriverList from './DriverList.jsx';
 
 export default class Map extends React.Component {
-	static proptypes = {
+	static propTypes = {
 		currentUser: PropTypes.object.isRequired,
 		users: PropTypes.array.isRequired,
 	}

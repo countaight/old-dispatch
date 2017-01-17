@@ -10,5 +10,12 @@ module.exports = {
     "installedESLint": true,
     "plugins": [
         "react"
-    ]
+    ],
+    "env": {
+        "browser": true,
+        "node":true,
+    },
+    "rules": {
+        "no-console":"off",
+    }
 };

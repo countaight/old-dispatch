@@ -6,7 +6,7 @@ const K_SIZE = 18;
 
 export default class MapMarker extends React.Component {
   static propTypes = {
-    $hover: PropTypes.bool,
+    $hover: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
     selectedKey: PropTypes.string,
     title: PropTypes.string.isRequired,

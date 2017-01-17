@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import Moment from 'moment';
 
 import Driver from './Driver.jsx';
 
