@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import Moment from 'moment';
 
 import DriverInfo from './DriverInfo.jsx';
 import SearchInput from './SearchInput.jsx';
+import PlaceList from './PlaceList.jsx';
 
 export default class Driver extends React.Component {
 	static propTypes = {
@@ -10,6 +10,7 @@ export default class Driver extends React.Component {
 		places: PropTypes.array.isRequired,
 		_setZoom: PropTypes.func,
 		_handleSelected: PropTypes.func,
+		_handleDeselect: PropTypes.func,
 		_setCenter: PropTypes.func
 	}
 
@@ -46,12 +47,8 @@ export default class Driver extends React.Component {
 				onMouseLeave={this.props._handleDeselect.bind(this)}
 			>
 				<DriverInfo user={user} lat={lat} lng={lng} />
-				<SearchInput userID={user.id}/>
-				<ul>
-					{places.map((place) => {
-						return <li onClick={() => console.log(place.name)} key={Math.random()}>{place.name}</li>
-					})}
-				</ul>
+				<SearchInput userID={user.id} />
+				<PlaceList places={places} />
 			</div>
 		)
 	}
