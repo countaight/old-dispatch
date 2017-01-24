@@ -6,7 +6,11 @@ class UsersController < ApplicationController
 	def index
 		@users = []
 		User.all.each do |user|
-			@users << {user: user, places: user.places}
+			places = []
+			user.place_assignments.each do |assignment|
+				places << {assignment: assignment, place: assignment.place}
+			end
+			@users << {user: user, places: places}
 		end
 		@users
 	end

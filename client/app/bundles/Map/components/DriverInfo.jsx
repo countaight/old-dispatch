@@ -4,9 +4,9 @@ import Moment from 'moment';
 const DriverInfo = ({user, lat, lng}) => {
 	return (
 		<div className="driver-info">
-			<h1>{user.name}</h1>
-			<p>User ID: {user.id}</p>
-			<p>Latitude: {lat} Longitude: {lng}</p>
+			<h3>{user.name}</h3>
+			<p>Latitude: {lat}</p>
+			<p>Longitude: {lng}</p>
 			<p>Last Updated: {Moment(user.updated_at).calendar()}</p>
 		</div>
 	)

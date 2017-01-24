@@ -8,7 +8,7 @@ export default class Place extends React.Component {
 	render () {
 		const { place } = this.props;
 		return (
-			<li onClick={() => console.log(place.name)}>{place.name} | {place.pu_del}</li>
+			<li className="place" onClick={() => console.log(place.place.name)}>{place.place.name} | {place.assignment.pu_del}</li>
 		)
 	}
 }

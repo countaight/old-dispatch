@@ -45,6 +45,7 @@ export default class Driver extends React.Component {
 				onClick={this._handleClick.bind(this)}
 				onMouseEnter={this._handleSelection.bind(this, `${user.id}`, [lat, lng])}
 				onMouseLeave={this.props._handleDeselect.bind(this)}
+				style={{padding: 5}}
 			>
 				<DriverInfo user={user} lat={lat} lng={lng} />
 				<SearchInput userID={user.id} />

@@ -135,7 +135,7 @@ export default class Map extends React.Component {
 	}
 
 	_zoomToAll () {
-		const coordinates = _.map(this.props.users, (user) => { return user.coordinates })
+		const coordinates = _.map(this.props.users, (user) => { return user.user.coordinates })
 		
 		const sortLat = _.orderBy(coordinates, ['lat'], ['desc'])
 

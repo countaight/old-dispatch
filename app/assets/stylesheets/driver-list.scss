@@ -6,8 +6,8 @@
 }
 
 .selected {
-	height: 320px;
 	background-color: #669966;
+	height: 400px;
 	color: white;
 	transition: all 1000ms;
 	overflow: auto;
@@ -40,7 +40,6 @@ form {
 }
 
 .form_unfocused {
-	height: 25px;
 	overflow: hidden;
 	transition: all 0.5s;
 }
@@ -49,4 +48,35 @@ form {
 	height: 50px;
 	overflow: hidden;
 	transition: all 0.5s;
+}
+
+.driver-info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+
+	h3, p {
+		margin: 0;
+	}
+
+	h3 {
+		font-size: 2em;
+	}
+
+	p {
+		text-align: left;
+	}
+}
+
+.place-list {
+	padding: 0;
+	background: #006858;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	.place {
+		list-style: none;
+		flex: 1;
+	}
 }
