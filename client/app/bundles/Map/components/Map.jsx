@@ -6,9 +6,8 @@ import _ from 'lodash';
 import MapMarker from './MapMarker.jsx';
 import DriverList from './DriverList.jsx';
 
-
 export default class Map extends React.Component {
-	static proptypes = {
+	static propTypes = {
 		currentUser: PropTypes.object.isRequired,
 		users: PropTypes.array.isRequired,
 	}
@@ -30,8 +29,8 @@ export default class Map extends React.Component {
 	}
 
 	componentDidMount () {
-		var uri = "wss://" + window.document.location.host + "/mapsocket";
-		var ws = new WebSocket(uri);
+		const uri = "ws://" + window.document.location.host + "/mapsocket";
+		const ws = new WebSocket(uri);
 
 		this.ws = ws
 
@@ -136,7 +135,7 @@ export default class Map extends React.Component {
 	}
 
 	_zoomToAll () {
-		const coordinates = _.map(this.props.users, (user) => { return user.coordinates })
+		const coordinates = _.map(this.props.users, (user) => { return user.user.coordinates })
 		
 		const sortLat = _.orderBy(coordinates, ['lat'], ['desc'])
 
@@ -167,9 +166,9 @@ export default class Map extends React.Component {
 	_renderMarkers () {
 		return (
 			this.state.loadedUsers.map((user) => {
-				let lat = user.coordinates.lat;
-				let lng = user.coordinates.lng;
-				return <MapMarker key={user.id} lat={lat} lng={lng} title={user.name} lastUpdated={user.updated_at} selectedKey={this.state.selectedKey} id={user.id}/>
+				let lat = user.user.coordinates.lat;
+				let lng = user.user.coordinates.lng;
+				return <MapMarker key={user.user.id} lat={lat} lng={lng} title={user.user.name} lastUpdated={user.user.updated_at} selectedKey={this.state.selectedKey} id={user.user.id}/>
 			})
 		)
 	}
@@ -183,9 +182,10 @@ export default class Map extends React.Component {
 						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
 						center={this.state.initCenter}
 						onChange={this._handleChange.bind(this)}
-						onChildMouseEnter={this._handleSelected.bind(this)}
-						onChildMouseLeave={this._handleDeselect.bind(this)}
+						//onChildMouseEnter={this._handleSelected.bind(this)}
+						//onChildMouseLeave={this._handleDeselect.bind(this)}
 						onClick={this._setCenter.bind(this)}
+						onChildClick={this._handleSelected.bind(this)}
 						options={this._getMapStyle}
 						zoom={this.state.zoom}
 					>

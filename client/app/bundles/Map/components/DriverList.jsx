@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import Moment from 'moment';
+
+import Driver from './Driver.jsx';
 
 export default class DriverList extends React.Component {
 	static propTypes = {
@@ -11,32 +12,21 @@ export default class DriverList extends React.Component {
 		selected: PropTypes.string
 	}
 
-	_handleClick () {
-		this.props._setZoom(12);
-	}
-
-	_handleSelection (key, coords) {
-		this.props._handleSelected(key);
-		this.props._setCenter(coords);
-	}
 	_renderDrivers () {
 		return (
 			this.props.users.map((user) => {
-				let lat = user.coordinates.lat;
-				let lng = user.coordinates.lng;
-				let selected = this.props.selected == user.id
+				const loadUser = user.user
 				return (
-					<div
-						key={user.id}
-						className={selected ? "selected" : "not-selected"}
-						onClick={this._handleClick.bind(this)}
-						onMouseEnter={this._handleSelection.bind(this, `${user.id}`, [lat, lng])}
-						onMouseLeave={this.props._handleDeselect.bind(this)}
-					>
-						<h1>{user.name}</h1>
-						<p>Latitude: {lat} Longitude: {lng}</p>
-						<p>Last Updated: {Moment(user.updated_at).calendar()}</p>
-					</div>
+					<Driver
+						key={loadUser.id}
+						user={loadUser}
+						places={user.places}
+						selected={this.props.selected}
+						_handleSelected={this.props._handleSelected}
+						_setZoom={this.props._setZoom}
+						_setCenter={this.props._setCenter}
+						_handleDeselect={this.props._handleDeselect}
+					/>
 				)
 			})
 		)
