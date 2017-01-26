@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	include ReactOnRails::Controller
 	skip_before_filter :verify_authenticity_token
 	load_and_authorize_resource
 	skip_authorize_resource :only => :testPost
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
 			@users << {user: user, places: places}
 		end
 		@users
+		redux_store("mapStore", props: { users: @users, currentUser: current_user })
 	end
 
 	def show
