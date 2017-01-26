@@ -8,15 +8,17 @@ import DriverList from './DriverList.jsx';
 
 export default class Map extends React.Component {
 	static propTypes = {
-		currentUser: PropTypes.object.isRequired,
-		users: PropTypes.array.isRequired,
+		data: PropTypes.shape({
+			currentUser: PropTypes.object.isRequired,
+			users: PropTypes.array.isRequired
+		})
 	}
 
 	ws: null;
 
 	constructor (props) {
 		super(props);
-		this.currentUserCoords = this.props.currentUser.coordinates
+		this.currentUserCoords = this.props.data.currentUser.coordinates
 		this.state = {
 			initCenter: [
 						this.currentUserCoords.lat,
@@ -24,7 +26,7 @@ export default class Map extends React.Component {
 						],
 			zoom: 9,
 			selectedKey: null,
-			loadedUsers: this.props.users,
+			loadedUsers: this.props.data.users,
 		}
 	}
 
@@ -36,7 +38,7 @@ export default class Map extends React.Component {
 
 		ws.onopen = (e) => {
 			console.log('Connected');
-			ws.send(this.props.currentUser.name + "'s Map has connected!");
+			ws.send(this.props.data.currentUser.name + "'s Map has connected!");
 		};
 
 		ws.onmessage = (e) => {

@@ -1,11 +1,15 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import ReactOnRails from 'react-on-rails';
 
-import Map from '../components/Map';
+import MapContainer from '../containers/MapContainer';
 
-const MapApp = (props) => (
-  <Map {...props} />
-);
+export default (_props, _railsContext) => { // eslint-disable-line
+  const store = ReactOnRails.getStore('mapStore');
 
-// This is how react_on_rails can see the MapApp in the browser.
-ReactOnRails.register({ MapApp });
+  return (
+    <Provider store={store}>
+      <MapContainer />
+    </Provider>
+  );
+};
