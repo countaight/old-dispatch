@@ -9,7 +9,7 @@ const config = {
     'es5-shim/es5-shim',
     'es5-shim/es5-sham',
     'babel-polyfill',
-    './app/bundles/Map/startup/MapApp',
+    './app/bundles/Map/startup/clientRegistration',
   ],
 
   output: {
@@ -29,6 +29,7 @@ const config = {
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv),
       },
+      TRACE_TURBOLINKS: devBuild,
     }),
   ],
   module: {
