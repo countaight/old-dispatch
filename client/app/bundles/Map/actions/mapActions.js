@@ -5,3 +5,10 @@ export function addPlace() {
 		type: actionTypes.ADD_PLACE
 	};
 }
+
+export function updateUserPosition(user) {
+	return {
+		type: actionTypes.UPDATE_USER_POSITION,
+		user
+	}
+}

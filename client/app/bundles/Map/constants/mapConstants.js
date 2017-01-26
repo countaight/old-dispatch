@@ -1,1 +1,3 @@
-export const ADD_PLACE = 'ADD_PLACE'
+export const ADD_PLACE = 'ADD_PLACE';
+
+export const UPDATE_USER_POSITION = 'UPDATE_USER_POSITION';

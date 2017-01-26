@@ -11,6 +11,9 @@ export default class Map extends React.Component {
 		data: PropTypes.shape({
 			currentUser: PropTypes.object.isRequired,
 			users: PropTypes.array.isRequired
+		}),
+		actions: PropTypes.shape({
+			updateUserPosition: PropTypes.func.isRequired,
 		})
 	}
 
@@ -26,8 +29,8 @@ export default class Map extends React.Component {
 						],
 			zoom: 9,
 			selectedKey: null,
-			loadedUsers: this.props.data.users,
 		}
+		this._updateUserPosition = this.props.actions.updateUserPosition
 	}
 
 	componentDidMount () {
@@ -43,31 +46,13 @@ export default class Map extends React.Component {
 
 		ws.onmessage = (e) => {
 			const findJSON = e.data.search("{");
-			findJSON == 0 ? this._updateUser(JSON.parse(e.data)) : console.log(e.data);
+			findJSON == 0 ? this._updateUserPosition(JSON.parse(e.data)) : console.log(e.data);
 		}
 	}
 
 	componentWillUnmount () {
 		this.ws.close();
 		this.ws = null;
-	}
-
-	_updateUser (loadUser) {
-		const { loadedUsers } = this.state;
-
-		const editUser = loadedUsers.filter((user) => user.id == loadUser.id)[0];
-
-		const indexUser = loadedUsers.indexOf(editUser);
-
-		const editedUser = {
-			...editUser,
-			coordinates: loadUser.coordinates,
-			updated_at: loadUser.updated_at
-		};
-
-		loadedUsers[indexUser] = editedUser;
-
-		this.setState({ ...this.state, loadedUsers })
 	}
 
 	_getMapStyle (maps) {
@@ -137,7 +122,7 @@ export default class Map extends React.Component {
 	}
 
 	_zoomToAll () {
-		const coordinates = _.map(this.props.users, (user) => { return user.user.coordinates })
+		const coordinates = _.map(this.props.data.users, (user) => { return user.user.coordinates })
 		
 		const sortLat = _.orderBy(coordinates, ['lat'], ['desc'])
 
@@ -167,7 +152,7 @@ export default class Map extends React.Component {
 
 	_renderMarkers () {
 		return (
-			this.state.loadedUsers.map((user) => {
+			this.props.data.users.map((user) => {
 				let lat = user.user.coordinates.lat;
 				let lng = user.user.coordinates.lng;
 				return <MapMarker key={user.user.id} lat={lat} lng={lng} title={user.user.name} lastUpdated={user.user.updated_at} selectedKey={this.state.selectedKey} id={user.user.id}/>
@@ -200,7 +185,7 @@ export default class Map extends React.Component {
 					_setCenter={this._setCenter.bind(this)}
 					_setZoom={this._setZoom.bind(this)}
 					selected={this.state.selectedKey}
-					users={this.state.loadedUsers}
+					users={this.props.data.users}
 				/>
 				<button onClick={this._zoomToAll.bind(this)}>Fit All</button>
 				<hr />
