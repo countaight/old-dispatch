@@ -8,21 +8,20 @@ export default class SearchInput extends React.Component {
 
 	onPlacesChanged = () => {
 		const places = this.searchBox.getPlaces();
-		const place = places[0].geometry.location.toJSON();
+		const location = places[0].geometry.location.toJSON();
 
 		const { name, place_id } = places[0];
 		const { userID } = this.props;
 
-		fetch('http://localhost:3000/admin/places', {
-			method: 'POST',
-			body: JSON.stringify({name, place_id, place, user_id: userID, pu_del: this.state.radioButton}),
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			}
-		})
-		.then((resp) => resp.json())
-		.then((respJSON) => console.log(respJSON));
+		const placeAssignment = {
+			name,
+			place_id,
+			location,
+			user_id: userID,
+			pu_del: this.state.radioButton
+		}
+
+		this._addPlace(placeAssignment);
 
 		this.refs.input.value = "";
 	}
@@ -33,6 +32,8 @@ export default class SearchInput extends React.Component {
 			focused: false,
 			radioButton: "PU"
 		}
+
+		this._addPlace = this.props.addPlace
 	}
 
 	componentDidMount () {
