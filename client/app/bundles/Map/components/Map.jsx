@@ -14,6 +14,7 @@ export default class Map extends React.Component {
 		}),
 		actions: PropTypes.shape({
 			updateUserPosition: PropTypes.func.isRequired,
+			addPlace: PropTypes.func.isRequired
 		})
 	}
 
