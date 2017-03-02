@@ -11,7 +11,9 @@ export default class Driver extends React.Component {
 		_setZoom: PropTypes.func,
 		_handleSelected: PropTypes.func,
 		_handleDeselect: PropTypes.func,
-		_setCenter: PropTypes.func
+		_setCenter: PropTypes.func,
+		addPlace: PropTypes.func,
+		selected: PropTypes.string,
 	}
 
 	constructor (props) {
@@ -21,7 +23,10 @@ export default class Driver extends React.Component {
 		}
 	}
 
-	_handleClick () {
+	_handleClick (e) {
+		if (e.target.nodeName !== 'DIV') {
+			return
+		}
 		this.props._setZoom(12);
 		this.setState({keepOpen: !this.state.keepOpen});
 	}
@@ -48,7 +53,7 @@ export default class Driver extends React.Component {
 				style={{padding: 5}}
 			>
 				<DriverInfo user={user} lat={lat} lng={lng} />
-				<SearchInput userID={user.id} />
+				<SearchInput userID={user.id} addPlace={this.props.addPlace}/>
 				<PlaceList places={places} />
 			</div>
 		)

@@ -7,7 +7,7 @@ class Admin::PlacesController < ApplicationController
 	def create
 		@place = Admin::Place.find_or_create_by(g_place_id: params[:place_id]) do |place|
 			place.name = params[:name]
-			place.location = params[:place]
+			place.location = params[:location]
 		end
 
 		@user = User.find(params[:user_id])
@@ -21,7 +21,7 @@ class Admin::PlacesController < ApplicationController
 		respond_to do |format|
 			format.json do
 				if @new_load.save
-					render json: @new_load, include: [:place, :user]
+					render json: { assignment: @new_load, place: @place }
 				else
 					render json: { body: "Error" }
 				end

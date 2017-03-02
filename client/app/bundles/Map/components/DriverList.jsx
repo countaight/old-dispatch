@@ -26,6 +26,7 @@ export default class DriverList extends React.Component {
 						_setZoom={this.props._setZoom}
 						_setCenter={this.props._setCenter}
 						_handleDeselect={this.props._handleDeselect}
+						addPlace={this.props.addPlace}
 					/>
 				)
 			})
