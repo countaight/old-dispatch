@@ -5,6 +5,10 @@ export default class Place extends React.Component {
 		place: PropTypes.object.isRequired,
 	}
 
+	_handleCheckbox () {
+		this.props.updatePlace(this.props.place.assignment.id);
+	}
+
 	render () {
 		const { place } = this.props;
 		return (
@@ -12,7 +16,7 @@ export default class Place extends React.Component {
 				className="place"
 				onClick={() => console.log(place.place.name)}
 			>
-				<input onChange={(e) => console.log(e)} type="checkbox" checked={place.assignment.delivered} />{place.place.name} | {place.assignment.pu_del}
+				<input onChange={this._handleCheckbox.bind(this)} type="checkbox" checked={place.assignment.delivered} />{place.place.name} | {place.assignment.pu_del}
 			</li>
 		)
 	}

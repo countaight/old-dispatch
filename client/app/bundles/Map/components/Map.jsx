@@ -188,6 +188,7 @@ export default class Map extends React.Component {
 					selected={this.state.selectedKey}
 					users={this.props.data.users}
 					addPlace={this.props.actions.addPlace}
+					updatePlace={this.props.actions.updatePlace}
 				/>
 				<button onClick={this._zoomToAll.bind(this)}>Fit All</button>
 				<hr />

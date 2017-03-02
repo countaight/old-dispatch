@@ -13,7 +13,7 @@ export default class PlaceList extends React.Component {
 		return (
 			places.map((place) => {
 				return (
-					<Place key={Math.random()} place={place} />
+					<Place key={Math.random()} place={place} updatePlace={this.props.updatePlace}/>
 				)
 			})
 		)
