@@ -14,4 +14,12 @@ class Admin::PlaceAssignmentsController < ApplicationController
 			end
 		end
 	end
+
+	def destroy
+		@place_assignment = Admin::PlaceAssignment.find(params[:id])
+		p place_assignment
+		# if @place_assignment.delivered
+		# 	@place_assignment.delete
+		# end
+	end
 end
