@@ -76,7 +76,19 @@ form {
 	align-items: flex-start;
 
 	.place {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
 		list-style: none;
 		flex: 1;
+		justify-content: flex-start;
+
+		input {
+			flex: 1 1 10%;
+		}
+
+		span {
+			flex: 2 2 90%;
+		}
 	}
 }

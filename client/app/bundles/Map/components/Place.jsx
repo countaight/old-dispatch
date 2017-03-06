@@ -14,10 +14,9 @@ export default class Place extends React.Component {
 		return (
 			<li
 				className="place"
-				onClick={() => console.log(place.place.name)}
 			>
-				<input onChange={this._handleCheckbox.bind(this)} type="checkbox" checked={place.assignment.delivered} />{place.place.name} | {place.assignment.pu_del}
-				{place.assignment.delivered ? <p onClick={() => console.log("DELETE")}>Delete</p> : ''}
+				<input onChange={this._handleCheckbox.bind(this)} type="checkbox" checked={place.assignment.delivered} /><span>{place.place.name} | {place.assignment.pu_del}</span>
+				{place.assignment.delivered ? <span style={{cursor: 'pointer'}} onClick={() => console.log("DELETE")}>Delete</span> : ''}
 			</li>
 		)
 	}
