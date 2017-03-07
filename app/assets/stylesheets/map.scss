@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: font-url('Montserrat-Regular.ttf');
+}
+
 .map-container {
 	position: relative;
 	width: 80%;
@@ -23,10 +28,12 @@
 }
 
 aside {
+  display: flex;
+  flex-direction: column;
   flex: 1 1 25%;
   background-color: #ddd;
   height: 600px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 hr {

@@ -57,7 +57,7 @@ export default class SearchInput extends React.Component {
 					ref="input"
 					type="text"
 				/>
-				<div className="radio-button">
+				<div className="radio-button PU">
 					<input
 						value="PU"
 						type="radio"
@@ -65,7 +65,7 @@ export default class SearchInput extends React.Component {
 						onChange={() => this.setState({radioButton: "PU"})}
 					/><label>Pick-up</label>
 				</div>
-				<div className="radio-button">
+				<div className="radio-button DEL">
 					<input
 						value="DEL"
 						type="radio"

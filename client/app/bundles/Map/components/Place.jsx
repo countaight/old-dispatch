@@ -17,10 +17,11 @@ export default class Place extends React.Component {
 		const { place } = this.props;
 		return (
 			<li
-				className="place"
+				className={"place " + place.assignment.pu_del}
 			>
-				<input onChange={this._handleCheckbox.bind(this)} type="checkbox" checked={place.assignment.delivered} /><span>{place.place.name} | {place.assignment.pu_del}</span>
-				{place.assignment.delivered ? <span style={{cursor: 'pointer'}} onClick={this._handleDelete.bind(this)}>Delete</span> : ''}
+				<input onChange={this._handleCheckbox.bind(this)} type="checkbox" checked={place.assignment.delivered} />
+				<span className="place-name">{place.place.name}</span>
+				{place.assignment.delivered ? <span className="delete-button" style={{cursor: 'pointer'}} onClick={this._handleDelete.bind(this)}>Delete</span> : <span />}
 			</li>
 		)
 	}

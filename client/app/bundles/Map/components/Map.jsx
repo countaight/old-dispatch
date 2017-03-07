@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import GoogleMap from'google-map-react';
+import GoogleMap from 'google-map-react';
 import { fitBounds } from 'google-map-react/utils';
 import _ from 'lodash';
 
@@ -35,6 +35,7 @@ export default class Map extends React.Component {
 	}
 
 	componentDidMount () {
+		console.log(window)
 		const uri = "ws://" + window.document.location.host + "/mapsocket";
 		const ws = new WebSocket(uri);
 
