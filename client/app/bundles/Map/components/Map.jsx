@@ -162,6 +162,7 @@ export default class Map extends React.Component {
 	}
 
 	render () {
+		const { actions } = this.props;
 		return (
 			<div className={'react-map'}>
 				<h1 className={'map-title'}>Map with markers</h1>
@@ -187,8 +188,9 @@ export default class Map extends React.Component {
 					_setZoom={this._setZoom.bind(this)}
 					selected={this.state.selectedKey}
 					users={this.props.data.users}
-					addPlace={this.props.actions.addPlace}
-					updatePlace={this.props.actions.updatePlace}
+					addPlace={actions.addPlace}
+					updatePlace={actions.updatePlace}
+					deletePlace={actions.deletePlace}
 				/>
 				<button onClick={this._zoomToAll.bind(this)}>Fit All</button>
 				<hr />

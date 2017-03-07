@@ -9,6 +9,10 @@ export default class Place extends React.Component {
 		this.props.updatePlace(this.props.place.assignment.id);
 	}
 
+	_handleDelete() {
+		this.props.deletePlace(this.props.place.assignment.id);
+	}
+
 	render () {
 		const { place } = this.props;
 		return (
@@ -16,7 +20,7 @@ export default class Place extends React.Component {
 				className="place"
 			>
 				<input onChange={this._handleCheckbox.bind(this)} type="checkbox" checked={place.assignment.delivered} /><span>{place.place.name} | {place.assignment.pu_del}</span>
-				{place.assignment.delivered ? <span style={{cursor: 'pointer'}} onClick={() => console.log("DELETE")}>Delete</span> : ''}
+				{place.assignment.delivered ? <span style={{cursor: 'pointer'}} onClick={this._handleDelete.bind(this)}>Delete</span> : ''}
 			</li>
 		)
 	}
