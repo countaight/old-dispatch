@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import GoogleMap from'google-map-react';
+import GoogleMap from 'google-map-react';
 import { fitBounds } from 'google-map-react/utils';
 import _ from 'lodash';
 
@@ -35,6 +35,7 @@ export default class Map extends React.Component {
 	}
 
 	componentDidMount () {
+		console.log(window)
 		const uri = "ws://" + window.document.location.host + "/mapsocket";
 		const ws = new WebSocket(uri);
 
@@ -162,6 +163,7 @@ export default class Map extends React.Component {
 	}
 
 	render () {
+		const { actions } = this.props;
 		return (
 			<div className={'react-map'}>
 				<h1 className={'map-title'}>Map with markers</h1>
@@ -187,7 +189,9 @@ export default class Map extends React.Component {
 					_setZoom={this._setZoom.bind(this)}
 					selected={this.state.selectedKey}
 					users={this.props.data.users}
-					addPlace={this.props.actions.addPlace}
+					addPlace={actions.addPlace}
+					updatePlace={actions.updatePlace}
+					deletePlace={actions.deletePlace}
 				/>
 				<button onClick={this._zoomToAll.bind(this)}>Fit All</button>
 				<hr />

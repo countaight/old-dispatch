@@ -27,6 +27,8 @@ export default class DriverList extends React.Component {
 						_setCenter={this.props._setCenter}
 						_handleDeselect={this.props._handleDeselect}
 						addPlace={this.props.addPlace}
+						updatePlace={this.props.updatePlace}
+						deletePlace={this.props.deletePlace}
 					/>
 				)
 			})

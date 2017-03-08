@@ -3,7 +3,6 @@ import thunkMiddleware from 'redux-thunk';
 import reducers, { initialStates } from '../reducers';
 
 export default (props, railsContext) => {
-  console.log("mapStore Props", props)
   const initialUsers = props.users;
   const { mapState } = initialStates;
   const initialState = {

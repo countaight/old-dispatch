@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'Montserrat-Regular';
+	src: font-url('Montserrat-Regular.ttf');
+}
+
 .not-selected {
 	background-color: #ddd;
 	height: 80px;
@@ -20,6 +25,14 @@ form {
 
 	input[type="text"] {
 		flex: 1 100%;
+	}
+
+	.DEL {
+		background-color: #e59400;
+	}
+
+	.PU {
+		background-color: #006858;
 	}
 
 	.radio-button {
@@ -51,9 +64,11 @@ form {
 }
 
 .driver-info {
+	font-family: 'Montserrat-Regular';
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
+	flex: 1;
 
 	h3, p {
 		margin: 0;
@@ -69,14 +84,47 @@ form {
 }
 
 .place-list {
+	flex: 3;
 	padding: 0;
-	background: #006858;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 
 	.place {
+		padding: 5px 0px;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
 		list-style: none;
 		flex: 1;
+		justify-content: flex-start;
+
+		input {
+			flex: 1 1 10%;
+		}
+
+		span {
+			flex: 1 1 20%;
+		}
+
+		.delete-button {
+			background-color: #cc3300;
+			padding: 2px;
+			text-align: center;
+			border-radius: 3px;
+		}
+
+		.place-name {
+			flex: 2 2 90%;
+			text-align: left;
+		}
+	}
+
+	.PU {
+		background-color: #006858;
+	}
+
+	.DEL {
+		background-color: #e59400;
 	}
 }
