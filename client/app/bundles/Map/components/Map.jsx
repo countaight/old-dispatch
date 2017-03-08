@@ -10,11 +10,16 @@ export default class Map extends React.Component {
 	static propTypes = {
 		data: PropTypes.shape({
 			currentUser: PropTypes.object.isRequired,
-			users: PropTypes.array.isRequired
+			users: PropTypes.array.isRequired,
+			selectedKey: PropTypes.string.isRequired,
+			zoom: PropTypes.number.isRequired,
 		}),
 		actions: PropTypes.shape({
 			updateUserPosition: PropTypes.func.isRequired,
-			addPlace: PropTypes.func.isRequired
+			addPlace: PropTypes.func.isRequired,
+			selectKey: PropTypes.func.isRequired,
+			setZoom: PropTypes.func.isRequired,
+			setCenter: PropTypes.func.isRequired,
 		})
 	}
 
@@ -22,20 +27,10 @@ export default class Map extends React.Component {
 
 	constructor (props) {
 		super(props);
-		this.currentUserCoords = this.props.data.currentUser.coordinates
-		this.state = {
-			initCenter: [
-						this.currentUserCoords.lat,
-						this.currentUserCoords.lng
-						],
-			zoom: 9,
-			selectedKey: null,
-		}
-		this._updateUserPosition = this.props.actions.updateUserPosition
+		this._updateUserPosition = this.props.actions.updateUserPosition;
 	}
 
 	componentDidMount () {
-		console.log(window)
 		const uri = "ws://" + window.document.location.host + "/mapsocket";
 		const ws = new WebSocket(uri);
 
@@ -98,12 +93,11 @@ export default class Map extends React.Component {
 	}
 
 	_handleSelected (selectedKey) {
-		let newState = { ...this.state, selectedKey }
-		this.setState(newState);
+		this.props.actions.selectKey(selectedKey);
 	}
 
 	_handleDeselect () {
-		this.setState({ ...this.state, selectedKey: null })
+		this.props.actions.selectKey("0");
 	}
 
 	_handleChange ({center, zoom}) {
@@ -112,15 +106,11 @@ export default class Map extends React.Component {
 	}
 
 	_setCenter (coords) {
-		this.setState({
-			initCenter: coords
-		})
+		this.props.actions.setCenter(coords);
 	}
 
 	_setZoom (zoom) {
-		this.setState({
-			zoom
-		})
+		this.props.actions.setZoom(zoom);
 	}
 
 	_zoomToAll () {
@@ -157,27 +147,27 @@ export default class Map extends React.Component {
 			this.props.data.users.map((user) => {
 				let lat = user.user.coordinates.lat;
 				let lng = user.user.coordinates.lng;
-				return <MapMarker key={user.user.id} lat={lat} lng={lng} title={user.user.name} lastUpdated={user.user.updated_at} selectedKey={this.state.selectedKey} id={user.user.id}/>
+				return <MapMarker key={user.user.id} lat={lat} lng={lng} title={user.user.name} lastUpdated={user.user.updated_at} selectedKey={this.props.data.selectedKey} id={user.user.id}/>
 			})
 		)
 	}
 
 	render () {
-		const { actions } = this.props;
+		const { actions, data } = this.props;
 		return (
 			<div className={'react-map'}>
 				<h1 className={'map-title'}>Map with markers</h1>
 				<div className={'google-map-component'}>
 					<GoogleMap
 						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
-						center={this.state.initCenter}
+						center={data.initCenter}
 						onChange={this._handleChange.bind(this)}
 						//onChildMouseEnter={this._handleSelected.bind(this)}
 						//onChildMouseLeave={this._handleDeselect.bind(this)}
 						onClick={this._setCenter.bind(this)}
 						onChildClick={this._handleSelected.bind(this)}
 						options={this._getMapStyle}
-						zoom={this.state.zoom}
+						zoom={data.zoom}
 					>
 						{this._renderMarkers()}
 					</GoogleMap>
@@ -187,8 +177,8 @@ export default class Map extends React.Component {
 					_handleSelected={this._handleSelected.bind(this)} 
 					_setCenter={this._setCenter.bind(this)}
 					_setZoom={this._setZoom.bind(this)}
-					selected={this.state.selectedKey}
-					users={this.props.data.users}
+					selected={data.selectedKey}
+					users={data.users}
 					addPlace={actions.addPlace}
 					updatePlace={actions.updatePlace}
 					deletePlace={actions.deletePlace}

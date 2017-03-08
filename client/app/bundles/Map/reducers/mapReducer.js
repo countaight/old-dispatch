@@ -58,6 +58,27 @@ export default function mapReducer(state = initialState, action = null) {
 			return newState;
 		}
 
+		case actionTypes.SELECT_DRIVER: {
+			const { selectedKey } = action;
+			const newState = { ...state, selectedKey }
+
+			return newState
+		}
+
+		case actionTypes.SET_ZOOM: {
+			const { zoom } = action;
+			const newState = { ...state, zoom }
+
+			return newState
+		}
+
+		case actionTypes.SET_CENTER: {
+			const { coords } = action;
+			const newState = { ...state, initCenter: coords }
+
+			return newState
+		}
+
 		default: {
 			return state
 		}

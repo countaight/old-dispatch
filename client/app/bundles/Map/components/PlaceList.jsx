@@ -5,6 +5,8 @@ import Place from './Place.jsx';
 export default class PlaceList extends React.Component {
 	static propTypes = {
 		places: PropTypes.array.isRequired,
+		updatePlace: PropTypes.func.isRequired,
+		deletePlace: PropTypes.func.isRequired,
 	}
 
 	_renderPlaces () {

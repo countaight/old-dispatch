@@ -18,7 +18,7 @@ export default class MapMarker extends React.Component {
   }
 
   render () {
-    const style = this.props.$hover ? hoverStyle: greatPlaceStyle
+    const style = this.props.$hover ? hoverStyle : greatPlaceStyle
     return (
       <div>
         <ReactCSSTransitionGroup

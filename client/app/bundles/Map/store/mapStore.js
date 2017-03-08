@@ -8,7 +8,10 @@ export default (props, railsContext) => {
   const initialState = {
     mapStore: { ...mapState,
       users: initialUsers,
-      currentUser: props.currentUser
+      currentUser: props.currentUser,
+      initCenter: props.currentUser.coordinates,
+      zoom: 9,
+      selectedKey: '0',
     }
   ,
     railsContext,
