@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import GoogleMap from 'google-map-react';
-import { fitBounds } from 'google-map-react/utils';
-import _ from 'lodash';
+import { zoomTo } from '../helpers/mapHelpers';
 
 import MapMarker from './MapMarker.jsx';
 import DriverList from './DriverList.jsx';
@@ -114,30 +113,10 @@ export default class Map extends React.Component {
 	}
 
 	_zoomToAll () {
-		const coordinates = _.map(this.props.data.users, (user) => { return user.user.coordinates })
-		
-		const sortLat = _.orderBy(coordinates, ['lat'], ['desc'])
-
-		const sortLng = _.orderBy(coordinates, ['lng'], ['asc'])
-
-		const bounds = {
-			nw: {
-				lat: _.first(sortLat).lat,
-				lng: _.first(sortLng).lng
-			},
-			se: {
-				lat: _.last(sortLat).lat,
-				lng: _.last(sortLng).lng
-			}
-		};
-
-		const size = {
-			width: 640, // Map width in pixels
-			height: 400, // Map height in pixels
-		};
-
-		const {center, zoom} = fitBounds(bounds, size);
-
+		const userCoordinates = this.props.data.users.map((user) => {
+			return user.user.coordinates
+		})
+		const {center, zoom} = zoomTo(userCoordinates);
 		this._setCenter(center);
 		this._setZoom(zoom);
 	}
