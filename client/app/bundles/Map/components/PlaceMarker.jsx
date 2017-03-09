@@ -8,7 +8,7 @@ export default class PlaceMarker extends React.Component {
     id: PropTypes.number.isRequired,
     selectedKey: PropTypes.string,
     title: PropTypes.string.isRequired,
-    lastUpdated: PropTypes.string.isRequired
+    lastUpdated: PropTypes.string
   }
 
   constructor (props) {
