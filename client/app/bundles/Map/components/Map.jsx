@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import GoogleMap from 'google-map-react';
 import { zoomTo } from '../helpers/mapHelpers';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import MapMarker from './MapMarker.jsx';
 import PlaceMarker from './PlaceMarker.jsx';
@@ -93,6 +94,7 @@ export default class Map extends React.Component {
 	}
 
 	_handleSelected (selectedKey) {
+		console.log(selectedKey);
 		this.props.actions.selectKey(selectedKey);
 	}
 
@@ -136,6 +138,7 @@ export default class Map extends React.Component {
 					lng={place.place.location.lng}
 					id={place.assignment.user_id}
 					title={place.place.name}
+					puDel={place.assignment.pu_del}
 				/>
 			)
 		})
