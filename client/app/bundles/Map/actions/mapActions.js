@@ -4,7 +4,7 @@ export function addPlace(placeAssignment) {
 	return (dispatch) => {
 		dispatch({ type: actionTypes.ADD_PLACE });
 
-		fetch('http://localhost:3000/admin/places', {
+		fetch(window.document.location.href + '/admin/places', {
 			method: 'POST',
 			body: JSON.stringify(placeAssignment),
 			headers: {
@@ -32,7 +32,7 @@ export function updatePlace(id) {
 	return (dispatch) => {
 		dispatch({ type: actionTypes.UPDATE_PLACE });
 
-		fetch('http://localhost:3000/admin/place_assignments/' + id, {
+		fetch(window.document.location.href + '/admin/place_assignments/' + id, {
 			method: 'PATCH',
 			body: JSON.stringify({id: id}),
 			headers: {
@@ -60,7 +60,7 @@ export function deletePlace(id) {
 	return (dispatch) => {
 		dispatch({ type: actionTypes.DELETE_PLACE });
 
-		fetch('http://localhost:3000/admin/place_assignments/' + id, {
+		fetch(window.document.location.href + '/admin/place_assignments/' + id, {
 			method: 'DELETE',
 			body: JSON.stringify({id: id}),
 			headers: {
@@ -88,5 +88,26 @@ export function updateUserPosition(user) {
 	return {
 		type: actionTypes.UPDATE_USER_POSITION,
 		user
+	}
+}
+
+export function selectKey(selectedKey) {
+	return {
+		type: actionTypes.SELECT_DRIVER,
+		selectedKey
+	}
+}
+
+export function setZoom(zoom) {
+	return {
+		type: actionTypes.SET_ZOOM,
+		zoom
+	}
+}
+
+export function setCenter(coords) {
+	return {
+		type: actionTypes.SET_CENTER,
+		coords
 	}
 }

@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react';
 export default class Place extends React.Component {
 	static propTypes = {
 		place: PropTypes.object.isRequired,
+		updatePlace: PropTypes.func.isRequired,
+		deletePlace: PropTypes.func.isRequired,
 	}
 
 	_handleCheckbox () {
