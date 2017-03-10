@@ -46,9 +46,10 @@ hr {
 }
 
 .bubble {
+  opacity: .75;
   position: relative;
-  top: -55px;
-  left: 8px;
+  top: -65px;
+  left: 0px;
   width: 150px;
   height: 70px;
   background-color: #669966;
@@ -57,6 +58,8 @@ hr {
   color: white;
   overflow: hidden;
   z-index: 9;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px #888;
 }
 
 .bubble-title {
@@ -78,8 +81,8 @@ hr {
 .bubble-enter.bubble-enter-active {
   height: 70px;
   width: 150px;
-  left: 8px;
-  top: -55px;
+  left: 0px;
+  top: -65px;
   white-space: nowrap;
   transition: all 500ms ease-out;
 }
@@ -87,8 +90,8 @@ hr {
 .bubble-leave {
   height: 70px;
   width: 150px;
-  left: 8px;
-  top: -55px;
+  left: 0px;
+  top: -65px;
 }
 
 .bubble-leave.bubble-leave-active {
