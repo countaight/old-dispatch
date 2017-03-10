@@ -8,26 +8,27 @@ export default class PlaceMarker extends React.Component {
     id: PropTypes.number.isRequired,
     selectedKey: PropTypes.string,
     title: PropTypes.string.isRequired,
-    lastUpdated: PropTypes.string.isRequired
-  }
-
-  constructor (props) {
-    super(props);
+    lastUpdated: PropTypes.string
   }
 
   render () {
+    const hoverStyle = this.props.puDel === "DEL" ? hoverDelStyle : hoverPuStyle;
+
+    const greatPlaceStyle = this.props.puDel === "DEL" ? greatDelPlaceStyle : greatPuPlaceStyle
+
     const style = this.props.$hover ? hoverStyle : greatPlaceStyle
+
     return (
       <div>
         <div style={style}>
-          <div style={innerStyle} />
+          <div style={this.props.puDel=== "DEL" ? innerDelStyle : innerPuStyle} />
         </div>
       </div>
     )
   }
 }
 
-const innerStyle = {
+const innerDelStyle = {
   position: 'relative',
   width: 10,
   height: 10,
@@ -35,9 +36,14 @@ const innerStyle = {
   top: 4,
   borderRadius: "50%",
   backgroundColor: '#e59400'
-}
+};
 
-const greatPlaceStyle = {
+const innerPuStyle = {
+  ...innerDelStyle,
+  backgroundColor: '#006858'
+};
+
+const greatDelPlaceStyle = {
   // initially any map object has left top corner at lat lng coordinates
   // it's on you to set object origin to 0,0 coordinates
   position: 'absolute',
@@ -56,12 +62,25 @@ const greatPlaceStyle = {
   fontWeight: 'bold',
 };
 
-const hoverStyle = {
+const greatPuPlaceStyle = {
+  ...greatDelPlaceStyle,
+  color: '#006858',
+  border: '2px solid #006858',
+}
+
+const hoverDelStyle = {
   // initially any map object has left top corner at lat lng coordinates
   // it's on you to set object origin to 0,0 coordinates
-  ...greatPlaceStyle,
+  ...greatDelPlaceStyle,
   border: '2px solid #ddd',
   backgroundColor: '#e59400',
+  zIndex: 1000,
+};
+
+const hoverPuStyle = {
+  ...greatPuPlaceStyle,
+  border: '2px solid #ddd',
+  backgroundColor: '#006858',
   zIndex: 1000,
 };
 

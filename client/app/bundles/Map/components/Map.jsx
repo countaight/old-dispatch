@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import GoogleMap from 'google-map-react';
 import { zoomTo } from '../helpers/mapHelpers';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import MapMarker from './MapMarker.jsx';
+import PlaceMarker from './PlaceMarker.jsx';
 import DriverList from './DriverList.jsx';
 
 export default class Map extends React.Component {
@@ -92,6 +94,7 @@ export default class Map extends React.Component {
 	}
 
 	_handleSelected (selectedKey) {
+		console.log(selectedKey);
 		this.props.actions.selectKey(selectedKey);
 	}
 
@@ -121,12 +124,44 @@ export default class Map extends React.Component {
 		this._setZoom(zoom);
 	}
 
+	_revealPlaceMarkers () {
+		if (this.props.data.selectedKey === "0") {
+			return
+		}
+		const user = this.props.data.users.filter((user) => user.user.id == this.props.data.selectedKey)[0]
+
+		const placeMarkers = user.places.map((place) => {
+			return (
+				<PlaceMarker
+					key={place.place.id}
+					lat={place.place.location.lat}
+					lng={place.place.location.lng}
+					id={place.assignment.user_id}
+					title={place.place.name}
+					puDel={place.assignment.pu_del}
+				/>
+			)
+		})
+
+		return placeMarkers
+	}
+
 	_renderMarkers () {
 		return (
 			this.props.data.users.map((user) => {
 				let lat = user.user.coordinates.lat;
 				let lng = user.user.coordinates.lng;
-				return <MapMarker key={user.user.id} lat={lat} lng={lng} title={user.user.name} lastUpdated={user.user.updated_at} selectedKey={this.props.data.selectedKey} id={user.user.id}/>
+				return (
+					<MapMarker
+						key={user.user.id}
+						lat={lat}
+						lng={lng}
+						title={user.user.name}
+						lastUpdated={user.user.updated_at}
+						selectedKey={this.props.data.selectedKey}
+						id={user.user.id}
+					/>
+				)
 			})
 		)
 	}
@@ -148,7 +183,7 @@ export default class Map extends React.Component {
 						options={this._getMapStyle}
 						zoom={data.zoom}
 					>
-						{this._renderMarkers()}
+						{this.props.data.selectedKey === "0" ? this._renderMarkers() : this._renderMarkers().concat(this._revealPlaceMarkers())}
 					</GoogleMap>
 				</div>
 				<DriverList
