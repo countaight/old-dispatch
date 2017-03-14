@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import GoogleMap from 'google-map-react';
 import { zoomTo } from '../helpers/mapHelpers';
-import { TransitionMotion, spring } from 'react-motion';
+import { TransitionMotion, spring, presets } from 'react-motion';
 
 
 import MapMarker from './MapMarker.jsx';
@@ -95,12 +95,11 @@ export default class Map extends React.Component {
 	}
 
 	_handleSelected (selectedKey) {
-		console.log(selectedKey);
 		this.props.actions.selectKey(selectedKey);
 	}
 
 	_handleDeselect () {
-		this.props.actions.selectKey("0");
+		this.props.actions.selectKey("00");
 	}
 
 	_handleChange ({center, zoom}) {
@@ -126,7 +125,8 @@ export default class Map extends React.Component {
 	}
 
 	willLeave() {
-		return {width: spring(0), height: spring(0), left: spring(0), top: spring(0)}
+		const fastLeave = {stiffness: 345, damping: 30, precision: 1.0}
+		return {width: spring(0, fastLeave), height: spring(0, fastLeave), left: spring(0, fastLeave), top: spring(0, fastLeave)}
 	}
 
 	willEnter() {
@@ -134,10 +134,6 @@ export default class Map extends React.Component {
 	}
 
 	_revealPlaceMarkers (interpolatedStyles) {
-		if (this.props.data.selectedKey === "0") {
-			return []
-		}
-
 		const placeMarkers = interpolatedStyles.map((config) => {
 			return (
 				<PlaceMarker
@@ -188,7 +184,7 @@ export default class Map extends React.Component {
 						styles={user ? user.places.map((place) => ({
 							key: "place-" + place.assignment.id,
 							data: {...place},
-							style: {width: spring(18), height: spring(18), left: spring(-9), top: spring(-9)}
+							style: {width: spring(18, presets.wobbly), height: spring(18, presets.wobbly), left: spring(-9, presets.wobbly), top: spring(-9, presets.wobbly)}
 						})) : []}
 					>
 						{interpolatedStyles =>
