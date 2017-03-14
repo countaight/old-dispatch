@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import GoogleMap from 'google-map-react';
 import { zoomTo } from '../helpers/mapHelpers';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { TransitionMotion, spring, presets } from 'react-motion';
+
 
 import MapMarker from './MapMarker.jsx';
 import PlaceMarker from './PlaceMarker.jsx';
@@ -94,12 +95,11 @@ export default class Map extends React.Component {
 	}
 
 	_handleSelected (selectedKey) {
-		console.log(selectedKey);
 		this.props.actions.selectKey(selectedKey);
 	}
 
 	_handleDeselect () {
-		this.props.actions.selectKey("0");
+		this.props.actions.selectKey("00");
 	}
 
 	_handleChange ({center, zoom}) {
@@ -124,21 +124,26 @@ export default class Map extends React.Component {
 		this._setZoom(zoom);
 	}
 
-	_revealPlaceMarkers () {
-		if (this.props.data.selectedKey === "0") {
-			return
-		}
-		const user = this.props.data.users.filter((user) => user.user.id == this.props.data.selectedKey)[0]
+	willLeave() {
+		const fastLeave = {stiffness: 345, damping: 30, precision: 1.0}
+		return {width: spring(0, fastLeave), height: spring(0, fastLeave), left: spring(0, fastLeave), top: spring(0, fastLeave)}
+	}
 
-		const placeMarkers = user.places.map((place) => {
+	willEnter() {
+		return {width: 0, height: 0, left: 0, top: 0}
+	}
+
+	_revealPlaceMarkers (interpolatedStyles) {
+		const placeMarkers = interpolatedStyles.map((config) => {
 			return (
 				<PlaceMarker
-					key={place.place.id}
-					lat={place.place.location.lat}
-					lng={place.place.location.lng}
-					id={place.assignment.user_id}
-					title={place.place.name}
-					puDel={place.assignment.pu_del}
+					key={config.key}
+					lat={config.data.place.location.lat}
+					lng={config.data.place.location.lng}
+					id={config.data.assignment.user_id}
+					title={config.data.place.name}
+					puDel={config.data.assignment.pu_del}
+					motionStyle={config.style}
 				/>
 			)
 		})
@@ -168,23 +173,36 @@ export default class Map extends React.Component {
 
 	render () {
 		const { actions, data } = this.props;
+		const user = data.users.filter((user) => user.user.id == data.selectedKey)[0];
 		return (
 			<div className={'react-map'}>
 				<h1 className={'map-title'}>Map with markers</h1>
 				<div className={'google-map-component'}>
-					<GoogleMap
-						bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
-						center={data.initCenter}
-						onChange={this._handleChange.bind(this)}
-						//onChildMouseEnter={this._handleSelected.bind(this)}
-						//onChildMouseLeave={this._handleDeselect.bind(this)}
-						onClick={this._setCenter.bind(this)}
-						onChildClick={this._handleSelected.bind(this)}
-						options={this._getMapStyle}
-						zoom={data.zoom}
+					<TransitionMotion
+						willEnter={this.willEnter}
+						willLeave={this.willLeave}
+						styles={user ? user.places.map((place) => ({
+							key: "place-" + place.assignment.id,
+							data: {...place},
+							style: {width: spring(18, presets.wobbly), height: spring(18, presets.wobbly), left: spring(-9, presets.wobbly), top: spring(-9, presets.wobbly)}
+						})) : []}
 					>
-						{this.props.data.selectedKey === "0" ? this._renderMarkers() : this._renderMarkers().concat(this._revealPlaceMarkers())}
-					</GoogleMap>
+						{interpolatedStyles =>
+							<GoogleMap
+								bootstrapURLKeys={{key: 'AIzaSyB2Chv-sdSPphlh-IsBKXfdzY8zUKqglww'}}
+								center={data.initCenter}
+								onChange={this._handleChange.bind(this)}
+								//onChildMouseEnter={this._handleSelected.bind(this)}
+								//onChildMouseLeave={this._handleDeselect.bind(this)}
+								onClick={this._setCenter.bind(this)}
+								onChildClick={this._handleSelected.bind(this)}
+								options={this._getMapStyle}
+								zoom={data.zoom}
+							>
+								{data.selectedKey === "0" ? this._renderMarkers() : this._renderMarkers().concat(this._revealPlaceMarkers(interpolatedStyles))}
+							</GoogleMap>
+						}
+					</TransitionMotion>
 				</div>
 				<DriverList
 					_handleDeselect={this._handleDeselect.bind(this)}

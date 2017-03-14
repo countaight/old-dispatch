@@ -49,7 +49,7 @@ export default class Driver extends React.Component {
 				className={selected || this.state.keepOpen ? "selected" : "not-selected"}
 				onClick={this._handleClick.bind(this)}
 				onMouseEnter={this._handleSelection.bind(this, `${user.id}`, [lat, lng])}
-				onMouseLeave={this.props._handleDeselect.bind(this)}
+				onMouseLeave={this.props._handleDeselect}
 				style={{padding: 5}}
 			>
 				<DriverInfo user={user} lat={lat} lng={lng} />
