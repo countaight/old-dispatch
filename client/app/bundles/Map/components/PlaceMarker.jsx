@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
 
-const K_SIZE = 18;
-
 export default class PlaceMarker extends React.Component {
   static propTypes = {
     $hover: PropTypes.bool,
@@ -12,16 +10,17 @@ export default class PlaceMarker extends React.Component {
   }
 
   render () {
+    const { width, height, left, top } = this.props.motionStyle;
     const hoverStyle = this.props.puDel === "DEL" ? hoverDelStyle : hoverPuStyle;
 
     const greatPlaceStyle = this.props.puDel === "DEL" ? greatDelPlaceStyle : greatPuPlaceStyle
 
-    const style = this.props.$hover ? hoverStyle : greatPlaceStyle
+    const style = this.props.$hover ? {...hoverStyle, width, height, left, top} : {...greatPlaceStyle, width, height, left, top}
 
     return (
       <div>
         <div style={style}>
-          <div style={this.props.puDel=== "DEL" ? innerDelStyle : innerPuStyle} />
+          <div style={this.props.puDel=== "DEL" ? {...innerDelStyle, width: width-8, height: height-8} : {...innerPuStyle, width: width-8, height: height-8}} />
         </div>
       </div>
     )
@@ -30,8 +29,6 @@ export default class PlaceMarker extends React.Component {
 
 const innerDelStyle = {
   position: 'relative',
-  width: 10,
-  height: 10,
   left: 4,
   top: 4,
   borderRadius: "50%",
@@ -47,13 +44,9 @@ const greatDelPlaceStyle = {
   // initially any map object has left top corner at lat lng coordinates
   // it's on you to set object origin to 0,0 coordinates
   position: 'absolute',
-  width: K_SIZE,
-  height: K_SIZE,
-  left: -K_SIZE / 2,
-  top: -K_SIZE / 2,
 
   border: "2px solid #e59400",
-  borderRadius: K_SIZE,
+  borderRadius: 18,
   backgroundColor: 'white',
   textAlign: 'center',
   color: '#e59400',
