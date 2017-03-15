@@ -115,10 +115,23 @@ export default class Map extends React.Component {
 		this.props.actions.setZoom(zoom);
 	}
 
+	_zoomToDriverPlaces (key) {
+		this.props.actions.selectKey(key);
+		
+		const user = this.props.data.users.filter((user) => user.user.id == key)[0];
+
+		const userPlacesCoords = user.places.map((place) => place.place.location);
+
+		const {center, zoom} = zoomTo(userPlacesCoords);
+		this._setCenter(center);
+		this._setZoom(zoom);
+	}
+
 	_zoomToAll () {
 		const userCoordinates = this.props.data.users.map((user) => {
 			return user.user.coordinates
 		})
+
 		const {center, zoom} = zoomTo(userCoordinates);
 		this._setCenter(center);
 		this._setZoom(zoom);
@@ -206,7 +219,7 @@ export default class Map extends React.Component {
 				</div>
 				<DriverList
 					_handleDeselect={this._handleDeselect.bind(this)}
-					_handleSelected={this._handleSelected.bind(this)} 
+					_handleSelected={this._zoomToDriverPlaces.bind(this)} 
 					_setCenter={this._setCenter.bind(this)}
 					_setZoom={this._setZoom.bind(this)}
 					selected={data.selectedKey}

@@ -27,13 +27,11 @@ export default class Driver extends React.Component {
 		if (e.target.nodeName !== 'DIV') {
 			return
 		}
-		this.props._setZoom(12);
 		this.setState({keepOpen: !this.state.keepOpen});
 	}
 
-	_handleSelection (key, coords) {
+	_handleSelection (key) {
 		this.props._handleSelected(key);
-		this.props._setCenter(coords);
 	}
 
 	render () {
@@ -48,7 +46,7 @@ export default class Driver extends React.Component {
 				key={user.id}
 				className={selected || this.state.keepOpen ? "selected" : "not-selected"}
 				onClick={this._handleClick.bind(this)}
-				onMouseEnter={this._handleSelection.bind(this, `${user.id}`, [lat, lng])}
+				onMouseEnter={this._handleSelection.bind(this, `${user.id}`)}
 				onMouseLeave={this.props._handleDeselect}
 				style={{padding: 5}}
 			>
