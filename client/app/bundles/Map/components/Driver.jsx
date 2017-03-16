@@ -56,6 +56,7 @@ export default class Driver extends React.Component {
 					places={places}
 					updatePlace={this.props.updatePlace}
 					deletePlace={this.props.deletePlace}
+					userLocation={user.coordinates}
 				/>
 			</div>
 		)

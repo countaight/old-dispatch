@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import GoogleMap from 'google-map-react';
-import { zoomTo } from '../helpers/mapHelpers';
+import { zoomTo, distance } from '../helpers/mapHelpers';
 import { TransitionMotion, spring, presets } from 'react-motion';
 
 

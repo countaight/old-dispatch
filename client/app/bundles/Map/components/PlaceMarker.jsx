@@ -6,7 +6,14 @@ export default class PlaceMarker extends React.Component {
     id: PropTypes.number.isRequired,
     selectedKey: PropTypes.string,
     title: PropTypes.string.isRequired,
-    lastUpdated: PropTypes.string
+    lastUpdated: PropTypes.string,
+    motionStyle: PropTypes.shape({
+      width: PropTypes.number,
+      height: PropTypes.number,
+      left: PropTypes.number,
+      top: PropTypes.number
+    }),
+    puDel: PropTypes.string,
   }
 
   render () {
