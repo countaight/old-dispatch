@@ -27,7 +27,7 @@ export default class Place extends React.Component {
 
 		style.position = 'absolute';
 
-		style.backgroundColor = place.assignment.pu_del == 'DEL' ? '#efc576' : '#00b99d';
+		style.backgroundColor = place.assignment.pu_del == 'DEL' ? '#efc576' : '#80b4ac';
 
 		style.width = this.determineDistance() > 5 ? '100%' : this.determineDistance()/5 * 100 + "%"
 
@@ -47,7 +47,7 @@ export default class Place extends React.Component {
 			>
 				<div className="progress-bar" style={this.getStyle()}/>
 				<input onChange={this._handleCheckbox.bind(this)} type="checkbox" checked={place.assignment.delivered} />
-				<span className="place-name">{place.place.name + " "}{this.determineDistance().toFixed(1)}</span>
+				<span className="place-name">{place.place.name + " "}{this.determineDistance().toFixed(1) + " mile(s) away"}</span>
 				{place.assignment.delivered ? <span className="delete-button" style={{cursor: 'pointer'}} onClick={this._handleDelete.bind(this)}>Delete</span> : <span />}
 			</li>
 		)
