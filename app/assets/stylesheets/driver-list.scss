@@ -98,7 +98,12 @@ form {
 		list-style: none;
 		flex: 1;
 		justify-content: flex-start;
+		position: relative;
 
+		input, span, .delete-button {
+			z-index: 10;
+		}
+		
 		input {
 			flex: 1 1 10%;
 		}

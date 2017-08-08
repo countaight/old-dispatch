@@ -20,6 +20,7 @@ export default class PlaceList extends React.Component {
 						place={place}
 						updatePlace={this.props.updatePlace}
 						deletePlace={this.props.deletePlace}
+						userLocation={this.props.userLocation}
 					/>
 				)
 			})
