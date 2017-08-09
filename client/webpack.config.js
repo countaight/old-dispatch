@@ -8,7 +8,6 @@ const config = {
   entry: [
     'es5-shim/es5-shim',
     'es5-shim/es5-sham',
-    'babel-polyfill',
     './app/bundles/Map/startup/clientRegistration',
   ],
 
