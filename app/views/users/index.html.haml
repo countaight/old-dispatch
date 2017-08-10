@@ -1,6 +1,5 @@
 - if logged_in?
-	= redux_store_hydration_data
-	.map-container
-		= react_component("MapApp", props: {}, prerender: false)
+	= javascript_pack_tag 'map'
+	.map-container{ data: { users: @users, currentUser: @current_user }.to_json }
 - else
 	= render partial: "roles/no_role_view"

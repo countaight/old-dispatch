@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record
@@ -33,10 +32,10 @@ gem 'thin'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'haml'
-gem 'react_on_rails', '~> 6'
 gem 'cancancan'
 gem 'rolify'
 gem 'faye-websocket'
+gem 'webpacker', '~> 2.0'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
