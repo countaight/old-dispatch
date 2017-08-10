@@ -185,7 +185,6 @@ export default class Map extends React.Component {
 	}
 
 	render () {
-		console.log(process);
 		const { actions, data } = this.props;
 		const user = data.users.filter((user) => user.user.id == data.selectedKey)[0];
 		return (
