@@ -63,3 +63,8 @@ node_modules
 
 .env
 
+/public/assets
+/public/packs
+/node_modules
+
+.DS_Store

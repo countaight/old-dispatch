@@ -17,8 +17,6 @@ export function zoomTo(coordinates) {
 		}
 	};
 
-	console.log(bounds);
-
 	const size = {
 		width: 640, // Map width in pixels
 		height: 400, // Map height in pixels

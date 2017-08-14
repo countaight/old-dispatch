@@ -1,20 +1,16 @@
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import reducers, { initialStates } from '../reducers';
+import reducers from '../reducers';
 
-export default (props, railsContext) => {
-  const initialUsers = props.users;
-  const { mapState } = initialStates;
+export default (p) => {
   const initialState = {
-    mapStore: { ...mapState,
-      users: initialUsers,
-      currentUser: props.currentUser,
-      initCenter: props.currentUser.coordinates,
+    mapStore: {
+      users: p.users,
+      currentUser: p.currentUser,
+      initCenter: p.currentUser.coordinates,
       zoom: 9,
       selectedKey: '0',
     }
-  ,
-    railsContext,
   };
 
   const reducer = combineReducers(reducers);
