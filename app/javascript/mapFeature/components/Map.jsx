@@ -33,6 +33,7 @@ export default class Map extends React.Component {
 	}
 
 	componentDidMount () {
+		console.log("Map mounted");
 		const uri = "ws://" + window.document.location.host + "/mapsocket";
 		const ws = new WebSocket(uri);
 
@@ -54,7 +55,7 @@ export default class Map extends React.Component {
 		this.ws = null;
 	}
 
-	_getMapStyle (maps) {
+	_getMapStyle (maps) { // eslint_ignore_line
 		return {
 			styles: [
 								{
