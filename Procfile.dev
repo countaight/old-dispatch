@@ -1,2 +1,2 @@
-web: bundle exec rails s
-webpacker: ./bin/webpack-dev-server
+web: bundle exec thin start --ssl --ssl-key-file ./privateKey.key --ssl-cert-file ./certificate.crt -p 3001
+webpacker: ./bin/webpack-dev-server --https --cert ./certificate.crt --key ./privateKey.key
