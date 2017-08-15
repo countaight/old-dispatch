@@ -4,17 +4,9 @@ class UsersController < ApplicationController
 	skip_authorize_resource :only => :testPost
 
 	def index
-		results = NoeldispatchSchema.execute("{\n  users {\n    name\n    coordinates\n    updated_at\n    assignments {\n      delivered\n      pu_del\n      place {\n        name\n        location {\n          lat\n          lng\n        }\n      }\n    }\n  }\n}")
-		p results.data.users
-		@users = []
-		User.all.each do |user|
-			places = []
-			user.place_assignments.each do |assignment|
-				places << {assignment: assignment, place: assignment.place}
-			end
-			@users << {user: user, places: places}
-		end
-		@users
+		results = NoeldispatchSchema.execute("{\n  users {\n    id\n    name\n    coordinates {\n    lat\n    lng\n    }\n    updated_at\n    assignments {\n    id\n      delivered\n      pu_del\n      place {\n    id\n        name\n        location {\n          lat\n          lng\n        }\n      }\n    }\n  }\n}")
+
+		@users = results["data"]["users"]
 	end
 
 	def show

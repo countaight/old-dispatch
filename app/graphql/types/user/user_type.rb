@@ -7,7 +7,7 @@ Types::UserType = GraphQL::ObjectType.define do
 	field :id, types.ID
 	field :name, types.String
 	field :email, types.String
-	field :coordinates, types.String
+	field :coordinates, Types::LocationType
 	field :created_at, types.Int do
 		resolve -> (user, args, ctx) {
 			user.created_at.to_i
