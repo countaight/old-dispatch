@@ -3,21 +3,22 @@ import { distance } from '../helpers/mapHelpers';
 
 export default class Place extends React.Component {
 	static propTypes = {
-		place: PropTypes.object.isRequired,
+		userLocation: PropTypes.object,
+		assignment: PropTypes.object.isRequired,
 		updatePlace: PropTypes.func.isRequired,
 		deletePlace: PropTypes.func.isRequired,
 	}
 
 	_handleCheckbox () {
-		this.props.updatePlace(this.props.place.assignment.id);
+		this.props.updatePlace(this.props.assignment.id);
 	}
 
 	_handleDelete() {
-		this.props.deletePlace(this.props.place.assignment.id);
+		this.props.deletePlace(this.props.assignment.id);
 	}
 
 	getStyle() {
-		const { place } = this.props;
+		const { assignment } = this.props;
 
 		let style = {
 			height: '100%',
@@ -27,7 +28,7 @@ export default class Place extends React.Component {
 
 		style.position = 'absolute';
 
-		style.backgroundColor = place.assignment.pu_del == 'DEL' ? '#efc576' : '#80b4ac';
+		style.backgroundColor = assignment.pu_del == 'DEL' ? '#efc576' : '#80b4ac';
 
 		style.width = this.determineDistance() > 5 ? '100%' : this.determineDistance()/5 * 100 + "%"
 
@@ -35,20 +36,20 @@ export default class Place extends React.Component {
 	}
 
 	determineDistance() {
-		const { userLocation, place } = this.props;
-		return distance(userLocation.lat, userLocation.lng, place.place.location.lat, place.place.location.lng);
+		const { userLocation, assignment } = this.props;
+		return distance(userLocation.lat, userLocation.lng, assignment.place.location.lat, assignment.place.location.lng);
 	}
 
 	render () {
-		const { place } = this.props;
+		const { assignment } = this.props;
 		return (
 			<li
-				className={"place " + place.assignment.pu_del}
+				className={"place " + assignment.pu_del}
 			>
 				<div className="progress-bar" style={this.getStyle()}/>
-				<input onChange={this._handleCheckbox.bind(this)} type="checkbox" checked={place.assignment.delivered} />
-				<span className="place-name">{place.place.name + " "}{this.determineDistance().toFixed(1) + " mile(s) away"}</span>
-				{place.assignment.delivered ? <span className="delete-button" style={{cursor: 'pointer'}} onClick={this._handleDelete.bind(this)}>Delete</span> : <span />}
+				<input onChange={this._handleCheckbox.bind(this)} type="checkbox" checked={assignment.delivered} />
+				<span className="place-name">{assignment.place.name + " "}{this.determineDistance().toFixed(1) + " mile(s) away"}</span>
+				{assignment.delivered ? <span className="delete-button" style={{cursor: 'pointer'}} onClick={this._handleDelete.bind(this)}>Delete</span> : <span />}
 			</li>
 		)
 	}

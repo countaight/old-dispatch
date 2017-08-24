@@ -118,9 +118,9 @@ export default class Map extends React.Component {
 	_zoomToDriverPlaces (key) {
 		this.props.actions.selectKey(key);
 
-		const user = this.props.data.users.filter((user) => user.user.id == key)[0];
+		const user = this.props.data.users.filter((user) => user.id == key)[0];
 
-		const userPlacesCoords = user.places.map((place) => place.place.location);
+		const userPlacesCoords = user.assignments.map((assignment) => assignment.place.location);
 
 		const {center, zoom} = zoomTo(userPlacesCoords);
 		this._setCenter(center);
@@ -129,7 +129,7 @@ export default class Map extends React.Component {
 
 	_zoomToAll () {
 		const userCoordinates = this.props.data.users.map((user) => {
-			return user.user.coordinates
+			return user.coordinates
 		})
 
 		const {center, zoom} = zoomTo(userCoordinates);
@@ -153,9 +153,9 @@ export default class Map extends React.Component {
 					key={config.key}
 					lat={config.data.place.location.lat}
 					lng={config.data.place.location.lng}
-					id={config.data.assignment.user_id}
+					id={config.data.user_id}
 					title={config.data.place.name}
-					puDel={config.data.assignment.pu_del}
+					puDel={config.data.pu_del}
 					motionStyle={config.style}
 				/>
 			)
@@ -167,17 +167,17 @@ export default class Map extends React.Component {
 	_renderMarkers () {
 		return (
 			this.props.data.users.map((user) => {
-				let lat = user.user.coordinates.lat;
-				let lng = user.user.coordinates.lng;
+				let lat = user.coordinates.lat;
+				let lng = user.coordinates.lng;
 				return (
 					<MapMarker
-						key={user.user.id}
+						key={user.id}
 						lat={lat}
 						lng={lng}
-						title={user.user.name}
-						lastUpdated={user.user.updated_at}
+						title={user.name}
+						lastUpdated={user.updated_at}
 						selectedKey={this.props.data.selectedKey}
-						id={user.user.id}
+						id={user.id}
 					/>
 				)
 			})
@@ -186,7 +186,7 @@ export default class Map extends React.Component {
 
 	render () {
 		const { actions, data } = this.props;
-		const user = data.users.filter((user) => user.user.id == data.selectedKey)[0];
+		const user = data.users.filter((user) => user.id == data.selectedKey)[0];
 		return (
 			<div className={'react-map'}>
 				<h1 className={'map-title'}>Map with markers</h1>
@@ -194,9 +194,9 @@ export default class Map extends React.Component {
 					<TransitionMotion
 						willEnter={this.willEnter}
 						willLeave={this.willLeave}
-						styles={user ? user.places.map((place) => ({
-							key: "place-" + place.assignment.id,
-							data: {...place},
+						styles={user ? user.assignments.map((assignment) => ({
+							key: "place-" + assignment.id,
+							data: {...assignment, user_id: user.id},
 							style: {width: spring(18, presets.wobbly), height: spring(18, presets.wobbly), left: spring(-9, presets.wobbly), top: spring(-9, presets.wobbly)}
 						})) : []}
 					>

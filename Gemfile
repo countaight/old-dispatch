@@ -36,6 +36,7 @@ gem 'cancancan'
 gem 'rolify'
 gem 'faye-websocket'
 gem 'webpacker', '~> 2.0'
+gem 'graphql', '~> 1.5.2'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
@@ -56,3 +57,5 @@ end
 
 gem 'rails_12factor', group: :production
 gem 'mini_racer', platforms: :ruby
+
+gem 'graphiql-rails', group: :development

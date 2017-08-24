@@ -4,20 +4,21 @@ import Place from './Place.jsx';
 
 export default class PlaceList extends React.Component {
 	static propTypes = {
-		places: PropTypes.array.isRequired,
+		assignments: PropTypes.array.isRequired,
 		updatePlace: PropTypes.func.isRequired,
 		deletePlace: PropTypes.func.isRequired,
+		userLocation: PropTypes.object.isRequired,
 	}
 
 	_renderPlaces () {
-		const { places } = this.props;
+		const { assignments } = this.props;
 
 		return (
-			places.map((place) => {
+			assignments.map((assignment) => {
 				return (
 					<Place
 						key={Math.random()}
-						place={place}
+						assignment={assignment}
 						updatePlace={this.props.updatePlace}
 						deletePlace={this.props.deletePlace}
 						userLocation={this.props.userLocation}

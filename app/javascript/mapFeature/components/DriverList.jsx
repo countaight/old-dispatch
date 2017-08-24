@@ -15,12 +15,11 @@ export default class DriverList extends React.Component {
 	_renderDrivers () {
 		return (
 			this.props.users.map((user) => {
-				const loadUser = user.user
 				return (
 					<Driver
-						key={loadUser.id}
-						user={loadUser}
-						places={user.places}
+						key={user.id}
+						user={user}
+						assignments={user.assignments}
 						selected={this.props.selected}
 						_handleSelected={this.props._handleSelected}
 						_setZoom={this.props._setZoom}

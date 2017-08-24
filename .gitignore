@@ -61,10 +61,10 @@ node_modules
 # Generated js bundles
 /app/assets/webpack/*
 
-.env
-
 /public/assets
 /public/packs
 /node_modules
 
 .DS_Store
+*.crt
+*.key

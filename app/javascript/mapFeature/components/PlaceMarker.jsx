@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 export default class PlaceMarker extends React.Component {
   static propTypes = {
     $hover: PropTypes.bool,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     selectedKey: PropTypes.string,
     title: PropTypes.string.isRequired,
     lastUpdated: PropTypes.string,
