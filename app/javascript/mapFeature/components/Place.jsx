@@ -3,6 +3,7 @@ import { distance } from '../helpers/mapHelpers';
 
 export default class Place extends React.Component {
 	static propTypes = {
+		userLocation: PropTypes.object,
 		assignment: PropTypes.object.isRequired,
 		updatePlace: PropTypes.func.isRequired,
 		deletePlace: PropTypes.func.isRequired,

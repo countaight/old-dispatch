@@ -1,5 +1,6 @@
 require_relative 'user/user_type'
 require_relative 'place/place_type'
+require_relative 'assignment/assignment_type'
 
 Types::QueryType = GraphQL::ObjectType.define do
   name "Query"
@@ -19,6 +20,14 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :id, !types.ID
     resolve -> (obj, args, ctx) {
       User.find(args[:id])
+    }
+  end
+
+  field :assignment do
+    type Types::AssignmentType
+    argument :id, !types.ID
+    resolve -> (obj, args, ctx) {
+      Admin::PlaceAssignment.find(args[:id])
     }
   end
 end

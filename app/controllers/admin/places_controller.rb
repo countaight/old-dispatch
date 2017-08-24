@@ -21,7 +21,8 @@ class Admin::PlacesController < ApplicationController
 		respond_to do |format|
 			format.json do
 				if @new_load.save
-					render json: { assignment: @new_load, place: @place }
+					results = NoeldispatchSchema.execute(queryString(@new_load.id))
+					render json: results["data"]["assignment"]
 				else
 					render json: { body: "Error" }
 				end
@@ -33,6 +34,27 @@ class Admin::PlacesController < ApplicationController
 	private
 	def place_params
 		params.require(:place).permit(:name)
+	end
+
+	def queryString(id)
+		%|{
+			assignment(id: #{id}) {
+				id
+				delivered
+				pu_del
+				user {
+					id
+				}
+				place {
+					id
+					name
+					location {
+						lat
+						lng
+					}
+				}
+			}
+		}|
 	end
 
 end

@@ -14,10 +14,10 @@ export default function mapReducer(state = initialState, action = null) {
 			const { assignment } = action;
 			const newState = Object.assign({}, state);
 			const { users } = newState;
-			const foundUser = users.filter((stateUser) => stateUser.user.id == assignment.assignment.user_id)[0];
-			const editUserPlaces = foundUser.places;
-			const newUserPlaces = editUserPlaces.concat(assignment);
-			foundUser.places = newUserPlaces;
+			const foundUser = users.filter((stateUser) => stateUser.id == assignment.user.id)[0];
+			const editUserAssignments = foundUser.assignments;
+			const newUserAssignments = editUserAssignments.concat(assignment);
+			foundUser.assignments = newUserAssignments;
 
 			return newState
 		}
@@ -25,11 +25,11 @@ export default function mapReducer(state = initialState, action = null) {
 		case actionTypes.UPDATE_USER_POSITION: {
 			const { user } = action;
 			const { users } = state;
-			const foundUser = users.filter((stateUser) => stateUser.user.id == user.id)[0];
-			const editUser = foundUser.user;
+			let foundUser = users.filter((stateUser) => stateUser.id == user.id)[0];
+			const editUser = foundUser;
 			const newUser = { ...editUser, coordinates: user.coordinates, updated_at: user.updated_at };
-			foundUser.user = newUser;
-			
+			foundUser = newUser;
+
 			const newState = { ...state, users };
 
 			return newState
@@ -39,10 +39,10 @@ export default function mapReducer(state = initialState, action = null) {
 			const { assignment } = action;
 			const newState = Object.assign({}, state);
 			const { users } = newState;
-			const foundUser = users.filter((stateUser) => stateUser.user.id == assignment.user_id)[0];
-			const foundPlace = foundUser.places.filter((statePlace) => statePlace.assignment.id == assignment.id);
-			const indexPlace = foundUser.places.indexOf(foundPlace[0])
-			foundUser.places[indexPlace].assignment = assignment
+			const foundUser = users.filter((stateUser) => stateUser.id == assignment.user.id)[0];
+			const foundAssignment = foundUser.assignments.filter((stateAssg) => stateAssg.id == assignment.id);
+			const indexAssignment = foundUser.assignments.indexOf(foundAssignment[0])
+			foundUser.assignments[indexAssignment] = assignment
 
 			return newState;
 		}
@@ -51,9 +51,9 @@ export default function mapReducer(state = initialState, action = null) {
 			const { assignment } = action;
 			const newState = Object.assign({}, state);
 			const { users } = newState;
-			const foundUser = users.filter((stateUser) => stateUser.user.id == assignment.user_id)[0];
-			const userPlaces = foundUser.places.filter((statePlace) => statePlace.assignment.id != assignment.id);
-			foundUser.places = userPlaces;
+			const foundUser = users.filter((stateUser) => stateUser.id == assignment.user.id)[0];
+			const userAssignments = foundUser.assignments.filter((stateAssg) => stateAssg.id != assignment.id);
+			foundUser.assignments = userAssignments;
 
 			return newState;
 		}
