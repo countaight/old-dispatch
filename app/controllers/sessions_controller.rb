@@ -13,7 +13,39 @@ class SessionsController < ApplicationController
 					log_in user
 					redirect_to profile_path
 				end
-				format.json { render json: { body: user }}
+				format.json do
+					result = NoeldispatchSchema.execute(
+						%Q|{
+							user(id: #{user.id}) {
+								id
+								name
+								email
+								coordinates {
+									lat
+									lng
+								}
+								updated_at
+								assignments {
+									id
+									delivered
+									pu_del
+									user {
+										id
+									}
+									place {
+										id
+										name
+										location {
+											lat
+											lng
+										}
+									}
+								}
+							}
+						}|
+					)
+					render json: { body: result["data"]["user"] }
+				end
 			end
 		else
 			respond_to do |format|
