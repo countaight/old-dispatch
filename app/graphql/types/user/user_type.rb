@@ -10,13 +10,13 @@ Types::UserType = GraphQL::ObjectType.define do
 	field :coordinates, Types::LocationType
 	field :created_at, types.Int do
 		resolve -> (user, args, ctx) {
-			user.created_at.to_i
+			user.created_at.to_i * 1000
 		}
 	end
 
 	field :updated_at, types.Int do
 		resolve -> (user, args, ctx) {
-			user.updated_at.to_i
+			user.updated_at.to_i * 1000
 		}
 	end
 

@@ -1,0 +1,4 @@
+- if logged_in?
+	.map-container{ data: { users: @users, currentUser: @current_user }.to_json }
+- else
+	= render partial: "roles/no_role_view"

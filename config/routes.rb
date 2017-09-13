@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
 
   post "/graphql", to: "graphql#execute"
-  root 'users#index'
+  root 'welcome#index'
   get    'login'  => 'sessions#new'
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create, :edit, :update]
 
-  namespace :admin do 
+  namespace :admin do
     resources :users, only: [:index, :destroy]
     resources :places
     resources :place_assignments
