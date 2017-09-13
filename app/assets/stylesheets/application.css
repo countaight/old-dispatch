@@ -82,3 +82,10 @@ ul.main-nav li {
 .logo img {
 	height: 85px;
 }
+
+.background-image {
+	width: 100%;
+	height: 100%;
+	opacity: .5;
+	margin-top: -5px;
+}
