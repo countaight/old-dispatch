@@ -1,0 +1,29 @@
+table, thead, th, tr, td {
+	padding: 5px;
+}
+
+tr {
+	background-color: lightgray;
+	height: 16px;
+	transition: all 1s;
+}
+
+td.role {
+	text-align: center;
+}
+
+th {
+	width: 300px;
+	background-color: #006838;
+	color: white;
+}
+
+th.role {
+	width: 60px;
+}
+
+tr.user:hover {
+	height: 100px;
+	background-color: lightblue;
+	transition: all 1s;
+}

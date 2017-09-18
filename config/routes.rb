@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :edit, :update]
 
   namespace :admin do
-    resources :users, only: [:index, :destroy]
+    resources :users, only: [:new, :index, :create, :destroy]
     resources :places
     resources :place_assignments
   end

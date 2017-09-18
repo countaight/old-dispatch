@@ -1,4 +1,22 @@
 - if logged_in?
-	.map-container{ data: { users: @users, currentUser: @current_user }.to_json }
+	-# .map-container{ data: { users: @users, currentUser: @current_user }.to_json }
+	.container
+		%table.users-list
+			%thead
+				%tr
+					%th Name
+					%th Email
+					%th.role Admin?
+					%th.role Staff?
+					%th.role Driver?
+			%tbody#table-body
+				- @users.sort.each do |user|
+					%tr[user]
+						%td #{user.name}
+						%td #{user.email}
+						%td.role= check_box_tag "role", "admin", user.has_role?("admin")
+						%td.role= check_box_tag "role", "staff", user.has_role?("staff")
+						%td.role= check_box_tag "role", "driver", user.has_role?("driver")
+	= render "admin/users/new"
 - else
 	= render partial: "roles/no_role_view"
