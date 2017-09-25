@@ -51,8 +51,14 @@ class Admin::UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 
-		respond_to do |format|
-			format.js { render layout: false }
+		if @user.save
+			respond_to do |format|
+				format.js { render layout: false }
+			end
+		else
+			respond_to do |format|
+				format.js { render layout: false }
+			end
 		end
 	end
 

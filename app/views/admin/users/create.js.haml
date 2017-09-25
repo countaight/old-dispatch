@@ -1,10 +1,17 @@
 console.log('create.js.haml file');
 
-$('#table-body').append(`
-%tr[@user]
-	%td #{@user.name}
-	%td #{@user.email}
-	%td.role= check_box_tag "role", "admin", @user.has_role?("admin")
-	%td.role= check_box_tag "role", "staff", @user.has_role?("staff")
-	%td.role= check_box_tag "role", "driver", @user.has_role?("driver")
-`)
+- if @user.errors.any?
+	$('#table-body').append(`
+	- @user.errors.full_messages.uniq.each do |error|
+		%tr.warn
+			%td{ colspan: "5"} #{error}
+	`)
+- else
+	$('#table-body').append(`
+	%tr[@user]
+		%td #{@user.name}
+		%td #{@user.email}
+		%td.role= check_box_tag "role", "admin", @user.has_role?("admin")
+		%td.role= check_box_tag "role", "staff", @user.has_role?("staff")
+		%td.role= check_box_tag "role", "driver", @user.has_role?("driver")
+	`)
