@@ -14,9 +14,12 @@
 					%tr[user]
 						%td #{user.name}
 						%td #{user.email}
-						%td.role= check_box_tag "role", "admin", user.has_role?("admin")
-						%td.role= check_box_tag "role", "staff", user.has_role?("staff")
-						%td.role= check_box_tag "role", "driver", user.has_role?("driver")
+						%td.role
+							= check_box_tag "role", "admin", user.has_role?("admin"), onclick: "updateRole('admin', #{user.id}, this.checked)"
+						%td.role
+							= check_box_tag "role", "staff", user.has_role?("staff"), onclick: "updateRole('staff', #{user.id}, this.checked)"
+						%td.role
+							= check_box_tag "role", "driver", user.has_role?("driver"), onclick: "updateRole('driver', #{user.id}, this.checked)"
 	= render "admin/users/new"
 - else
 	= render partial: "roles/no_role_view"

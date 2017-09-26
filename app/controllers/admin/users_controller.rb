@@ -62,6 +62,20 @@ class Admin::UsersController < ApplicationController
 		end
 	end
 
+	def update
+		if request.xhr?
+			@user = User.find(params[:id])
+
+			if !@user.has_role?(params[:role]) && params[:addRole] == "true"
+				@user.add_role params[:role]
+			elsif @user.has_role?(params[:role]) && params[:addRole] == "false"
+				@user.remove_role params[:role]
+			end
+		end
+
+		render nothing: true
+	end
+
 	private
 	def user_params
 		params.require(:user).permit(:name, :email, :password, :password_confirmation)
