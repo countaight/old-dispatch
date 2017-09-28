@@ -15,11 +15,20 @@
 						%td #{user.name}
 						%td #{user.email}
 						%td.role
-							= check_box_tag "role", "admin", user.has_role?("admin"), onclick: "updateRole('admin', #{user.id}, this.checked)"
+							%div.checkboxes
+								= check_box_tag "role", "admin", user.has_role?("admin"), onclick: "updateRole('admin', #{user.id}, this.checked)", id: "admin-user-#{user.id}", disabled: @current_user.id == user.id
+								%label{for: "admin-user-#{user.id}"}
 						%td.role
-							= check_box_tag "role", "staff", user.has_role?("staff"), onclick: "updateRole('staff', #{user.id}, this.checked)"
+							%div.checkboxes
+								= check_box_tag "role", "staff", user.has_role?("staff"), onclick: "updateRole('staff', #{user.id}, this.checked)", id: "staff-user-#{user.id}"
+								%label{for: "staff-user-#{user.id}"}
 						%td.role
-							= check_box_tag "role", "driver", user.has_role?("driver"), onclick: "updateRole('driver', #{user.id}, this.checked)"
-	= render "admin/users/new"
+							%div.checkboxes
+								= check_box_tag "role", "driver", user.has_role?("driver"), onclick: "updateRole('driver', #{user.id}, this.checked)", id: "driver-user-#{user.id}"
+								%label{for: "driver-user-#{user.id}"}
+			%tfoot
+				%tr
+					%td{colspan: 5}
+						%div.form= render "admin/users/new"
 - else
 	= render partial: "roles/no_role_view"
