@@ -13,10 +13,10 @@ Rails.application.routes.draw do
   get 'testing' => 'users#test'
   post 'testing' => 'users#testPost'
 
-  resources :users, only: [:new, :create, :edit, :update]
+  resources :users, only: [:edit, :update]
 
   namespace :admin do
-    resources :users, only: [:index, :destroy]
+    resources :users
     resources :places
     resources :place_assignments
   end

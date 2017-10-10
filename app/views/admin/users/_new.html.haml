@@ -1,0 +1,15 @@
+= form_for :user, html: { class: "add-user" }, remote: true do |f|
+	%h2 Add User
+	%div.form-field
+		= f.label :name
+		= f.text_field :name
+	%div.form-field
+		= f.label :email
+		= f.text_field :email
+	%div.form-field
+		= f.label :password
+		= f.password_field :password
+	%div.form-field
+		= f.label :password_confirmation
+		= f.password_field :password_confirmation
+	= f.submit

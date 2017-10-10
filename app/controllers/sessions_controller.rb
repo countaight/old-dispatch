@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
 					log_in user
 					redirect_to profile_path
 				end
+
 				format.json do
 					result = NoeldispatchSchema.execute(
 						%Q|{
@@ -53,7 +54,7 @@ class SessionsController < ApplicationController
 					flash.now[:danger] = "Invalid email/password combination."
 					render 'new'
 				end
-				format.json { render json: { error: "Invalid email/password combination." }}
+				format.json { render json: { error: "Invalid email/password combination." } }
 			end
 		end
 	end

@@ -14,3 +14,14 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+function updateRole(role, id, addRole) {
+	$.ajax({
+		url: '/admin/users/' + id,
+		method: 'PATCH',
+		data: {
+			role: role,
+			addRole: addRole
+		}
+	})
+}
