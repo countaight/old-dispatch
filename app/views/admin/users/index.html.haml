@@ -4,11 +4,13 @@
 		%table.users-list
 			%thead
 				%tr
-					%th Name
-					%th Email
-					%th.role Admin?
-					%th.role Staff?
-					%th.role Driver?
+					%th{rowspan: 2} Name
+					%th{rowspan: 2} Email
+					%th{colspan: 3} Roles
+				%tr
+					%th.role Admin
+					%th.role Staff
+					%th.role Driver
 			%tbody#table-body
 				- @users.sort.each do |user|
 					%tr[user]

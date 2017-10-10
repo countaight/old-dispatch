@@ -6,12 +6,19 @@ table {
 	width: 50vw;
 }
 
+thead {
+	tr {
+		height: 2vh;
+	}
+}
+
 tr {
 	height: 5vh;
 
 	td {
 		background-color: rgb(225, 250, 225);
 		border-radius: 3px;
+		font-family: 'Open Sans', sans-serif;
 
 		input[type=checkbox] {
 			display: none;
@@ -43,6 +50,7 @@ td.role {
 }
 
 th {
+	font-family: 'Montserrat-Regular', sans-serif;
 	width: 20vw;
 	background-color: #006838;
 	border-radius: 3px;
