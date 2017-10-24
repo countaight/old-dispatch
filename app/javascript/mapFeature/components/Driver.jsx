@@ -54,12 +54,12 @@ export default class Driver extends React.Component {
 			>
 				<DriverInfo user={user} lat={lat} lng={lng} />
 				<SearchInput userID={parseInt(user.id)} addPlace={this.props.addPlace}/>
-				<PlaceList
+				{assignments && <PlaceList
 					assignments={assignments}
 					updatePlace={this.props.updatePlace}
 					deletePlace={this.props.deletePlace}
 					userLocation={user.coordinates}
-				/>
+				/>}
 			</div>
 		)
 	}

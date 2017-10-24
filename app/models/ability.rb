@@ -33,7 +33,6 @@ class Ability
         can :manage, :all
     else
         can :read, User, :id => user.id
-        cannot :index, User
     end
   end
 end

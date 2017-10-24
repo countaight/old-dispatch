@@ -120,11 +120,16 @@ export default class Map extends React.Component {
 
 		const user = this.props.data.users.filter((user) => user.id == key)[0];
 
-		const userPlacesCoords = user.assignments.map((assignment) => assignment.place.location);
+		if(user.assignments.length > 0) {
+			const userPlacesCoords = user.assignments.map((assignment) => assignment.place.location);
 
-		const {center, zoom} = zoomTo(userPlacesCoords);
-		this._setCenter(center);
-		this._setZoom(zoom);
+			const {center, zoom} = zoomTo(userPlacesCoords);
+			this._setCenter(center);
+			this._setZoom(zoom);
+		} else {
+			this._setCenter(user.cooridnates);
+		}
+
 	}
 
 	_zoomToAll () {

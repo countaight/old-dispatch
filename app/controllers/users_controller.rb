@@ -4,13 +4,7 @@ class UsersController < ApplicationController
 	skip_authorize_resource :only => :testPost
 
 	def index
-		respond_to do |format|
-			format.html do
-				@users = User.has_any_role(:driver)
-			end
-
-			format.json do
-				results = NoeldispatchSchema.execute(
+		results = NoeldispatchSchema.execute(
 					%Q|{
 						users(role: "driver") {
 							id
@@ -39,10 +33,7 @@ class UsersController < ApplicationController
 						}
 					}|
 				)
-
-				@users = results["data"]["users"]
-			end
-		end
+		@users = results["data"]["users"]
 	end
 
 	def show
