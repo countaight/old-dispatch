@@ -2,6 +2,10 @@ import { fitBounds } from 'google-map-react/utils';
 import _ from 'lodash';
 
 export function zoomTo(coordinates) {
+	if(coordinates.reduce((a, b) => _.isEqual(a, b) ? a : NaN)) {
+		return { zoom: 12, center: coordinates[0] };
+	}
+
 	const sortLat = _.orderBy(coordinates, ['lat'], ['desc'])
 
 	const sortLng = _.orderBy(coordinates, ['lng'], ['asc'])

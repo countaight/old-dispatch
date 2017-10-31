@@ -4,7 +4,7 @@ export function addPlace(placeAssignment) {
 	return (dispatch) => {
 		dispatch({ type: actionTypes.ADD_PLACE });
 
-		fetch(window.document.location.href + '/admin/places', {
+		fetch(window.document.location.origin + '/admin/places', {
 			method: 'POST',
 			body: JSON.stringify(placeAssignment),
 			headers: {
@@ -32,7 +32,7 @@ export function updatePlace(id) {
 	return (dispatch) => {
 		dispatch({ type: actionTypes.UPDATE_PLACE });
 
-		fetch(window.document.location.href + '/admin/place_assignments/' + id, {
+		fetch(window.document.location.origin + '/admin/place_assignments/' + id, {
 			method: 'PATCH',
 			body: JSON.stringify({id: id}),
 			headers: {
@@ -60,7 +60,7 @@ export function deletePlace(id) {
 	return (dispatch) => {
 		dispatch({ type: actionTypes.DELETE_PLACE });
 
-		fetch(window.document.location.href + '/admin/place_assignments/' + id, {
+		fetch(window.document.location.origin + '/admin/place_assignments/' + id, {
 			method: 'DELETE',
 			body: JSON.stringify({id: id}),
 			headers: {
