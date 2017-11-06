@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { distance } from '../helpers/mapHelpers';
 
 export default class Place extends React.Component {

@@ -10,7 +10,12 @@ Types::QueryType = GraphQL::ObjectType.define do
   description "The query root for this schema"
 
   field :users, types[Types::UserType] do
+    argument :role, types.String
     resolve -> (obj, args, ctx) {
+      if args[:role]
+         return User.with_any_role(args[:role])
+      end
+
       User.all
     }
   end

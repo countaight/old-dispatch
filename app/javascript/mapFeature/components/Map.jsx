@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import GoogleMap from 'google-map-react';
 import { zoomTo, distance } from '../helpers/mapHelpers';
 import { TransitionMotion, spring, presets } from 'react-motion';
@@ -120,11 +121,16 @@ export default class Map extends React.Component {
 
 		const user = this.props.data.users.filter((user) => user.id == key)[0];
 
-		const userPlacesCoords = user.assignments.map((assignment) => assignment.place.location);
+		if(user.assignments.length > 0) {
+			const userPlacesCoords = user.assignments.map((assignment) => assignment.place.location);
 
-		const {center, zoom} = zoomTo(userPlacesCoords);
-		this._setCenter(center);
-		this._setZoom(zoom);
+			const {center, zoom} = zoomTo(userPlacesCoords);
+			this._setCenter(center);
+			this._setZoom(zoom);
+		} else {
+			this._setCenter(user.cooridnates);
+		}
+
 	}
 
 	_zoomToAll () {

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   get 'profile' => 'users#show'
+  get 'fleet' => 'users#index'
   get 'testing' => 'users#test'
   post 'testing' => 'users#testPost'
 

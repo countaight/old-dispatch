@@ -5,35 +5,34 @@ class UsersController < ApplicationController
 
 	def index
 		results = NoeldispatchSchema.execute(
-			%Q|{
-				users {
-					id
-					name
-					coordinates {
-						lat
-						lng
-					}
-					updated_at
-					assignments {
-						id
-						delivered
-						pu_del
-						user {
-							id
-						}
-						place {
+					%Q|{
+						users(role: "driver") {
 							id
 							name
-							location {
+							coordinates {
 								lat
 								lng
 							}
+							updated_at
+							assignments {
+								id
+								delivered
+								pu_del
+								user {
+									id
+								}
+								place {
+									id
+									name
+									location {
+										lat
+										lng
+									}
+								}
+							}
 						}
-					}
-				}
-			}|
-		)
-
+					}|
+				)
 		@users = results["data"]["users"]
 	end
 

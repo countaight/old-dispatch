@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import DriverInfo from './DriverInfo.jsx';
 import SearchInput from './SearchInput.jsx';
@@ -54,12 +55,12 @@ export default class Driver extends React.Component {
 			>
 				<DriverInfo user={user} lat={lat} lng={lng} />
 				<SearchInput userID={parseInt(user.id)} addPlace={this.props.addPlace}/>
-				<PlaceList
+				{assignments && <PlaceList
 					assignments={assignments}
 					updatePlace={this.props.updatePlace}
 					deletePlace={this.props.deletePlace}
 					userLocation={user.coordinates}
-				/>
+				/>}
 			</div>
 		)
 	}
