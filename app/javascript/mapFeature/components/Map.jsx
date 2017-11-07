@@ -143,12 +143,12 @@ export default class Map extends React.Component {
 		this._setZoom(zoom);
 	}
 
-	willLeave() {
+	willLeave () {
 		const fastLeave = {stiffness: 345, damping: 30, precision: 1.0}
 		return {width: spring(0, fastLeave), height: spring(0, fastLeave), left: spring(0, fastLeave), top: spring(0, fastLeave)}
 	}
 
-	willEnter() {
+	willEnter () {
 		return {width: 0, height: 0, left: 0, top: 0}
 	}
 
