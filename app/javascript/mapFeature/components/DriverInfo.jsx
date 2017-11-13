@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
 
-const DriverInfo = ({user, lat, lng}) => {
+const DriverInfo = ({user, lat, lng, selected}) => {
 	return (
 		<div className="driver-info">
 			<h3>{user.name}</h3>
-			<p>Latitude: {lat}</p>
-			<p>Longitude: {lng}</p>
-			<p>Last Updated: {Moment(user.updated_at).calendar()}</p>
 		</div>
 	)
 }
