@@ -22,15 +22,20 @@ export default class Driver extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			keepOpen: false
+			open: false
 		}
 	}
 
 	_handleClick (e) {
 		if (e.target.nodeName !== 'DIV') {
-			return
+			return;
 		}
-		this.setState({keepOpen: !this.state.keepOpen});
+
+		if (!this.state.open) {
+			this.props._handleSelected(this.props.user.id);
+		}
+
+		this.setState({open: this.props.selected === this.props.user.id});
 	}
 
 	_handleSelection (key) {
@@ -42,24 +47,23 @@ export default class Driver extends React.Component {
 		const { assignments } = this.props;
 		let lat = user.coordinates.lat;
 		let lng = user.coordinates.lng;
-		let selected = this.props.selected == user.id
+		let selected = this.props.selected == user.id;
+		console.log(selected, user.name);
 
 		return (
 			<div
 				key={user.id}
-				className={selected || this.state.keepOpen ? "selected" : "not-selected"}
+				className={selected ? "selected" : "not-selected"}
 				onClick={this._handleClick.bind(this)}
-				onMouseEnter={this._handleSelection.bind(this, `${user.id}`)}
-				onMouseLeave={this.props._handleDeselect}
-				style={{padding: 5}}
 			>
-				<DriverInfo user={user} lat={lat} lng={lng} />
-				<SearchInput userID={parseInt(user.id)} addPlace={this.props.addPlace}/>
+				<DriverInfo selected={selected} user={user} lat={lat} lng={lng} />
 				{assignments && <PlaceList
 					assignments={assignments}
 					updatePlace={this.props.updatePlace}
 					deletePlace={this.props.deletePlace}
 					userLocation={user.coordinates}
+					addPlace={this.props.addPlace}
+					user={user}
 				/>}
 			</div>
 		)

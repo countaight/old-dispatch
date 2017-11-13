@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Place from './Place.jsx';
+import Place from './Place';
+import SearchInput from './SearchInput';
 
 export default class PlaceList extends React.Component {
 	static propTypes = {
 		assignments: PropTypes.array.isRequired,
 		updatePlace: PropTypes.func.isRequired,
 		deletePlace: PropTypes.func.isRequired,
+		addPlace: PropTypes.func.isRequired,
 		userLocation: PropTypes.object.isRequired,
 	}
 
@@ -32,6 +34,7 @@ export default class PlaceList extends React.Component {
 	render () {
 		return (
 			<ul className="place-list">
+				<SearchInput userID={parseInt(this.props.user.id)} addPlace={this.props.addPlace}/>
 				{this._renderPlaces()}
 			</ul>
 		)

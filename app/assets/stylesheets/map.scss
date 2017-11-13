@@ -33,7 +33,12 @@ aside {
   flex: 1 1 25%;
   background-color: #ddd;
   height: 600px;
-  overflow: auto;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 hr {
