@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import DriverInfo from './DriverInfo.jsx';
 import SearchInput from './SearchInput.jsx';
 import PlaceList from './PlaceList.jsx';
+import DriverMenu from './DriverMenu.jsx'
 
 export default class Driver extends React.Component {
 	static propTypes = {
@@ -21,21 +22,10 @@ export default class Driver extends React.Component {
 
 	constructor (props) {
 		super(props);
-		this.state = {
-			open: false
-		}
 	}
 
 	_handleClick (e) {
-		if (e.target.nodeName !== 'DIV') {
-			return;
-		}
-
-		if (!this.state.open) {
-			this.props._handleSelected(this.props.user.id);
-		}
-
-		this.setState({open: this.props.selected === this.props.user.id});
+		this.props._handleSelected(this.props.user.id);
 	}
 
 	_handleSelection (key) {
@@ -43,12 +33,9 @@ export default class Driver extends React.Component {
 	}
 
 	render () {
-		const { user } = this.props;
-		const { assignments } = this.props;
-		let lat = user.coordinates.lat;
-		let lng = user.coordinates.lng;
+		const { user, assignments } = this.props;
+		let { lat, lng } = user.coordinates
 		let selected = this.props.selected == user.id;
-		console.log(selected, user.name);
 
 		return (
 			<div
@@ -57,14 +44,7 @@ export default class Driver extends React.Component {
 				onClick={this._handleClick.bind(this)}
 			>
 				<DriverInfo selected={selected} user={user} lat={lat} lng={lng} />
-				{assignments && <PlaceList
-					assignments={assignments}
-					updatePlace={this.props.updatePlace}
-					deletePlace={this.props.deletePlace}
-					userLocation={user.coordinates}
-					addPlace={this.props.addPlace}
-					user={user}
-				/>}
+				{selected && <DriverMenu {...this.props}/>}
 			</div>
 		)
 	}

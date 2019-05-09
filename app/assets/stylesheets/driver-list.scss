@@ -6,15 +6,15 @@
 .not-selected {
 	background-color: #ddd;
 	height: 80px;
-	transition: all 1000ms;
+	transition: all 500ms;
 	overflow: hidden;
 }
 
 .selected {
-	background-color: #669966;
-	height: 400px;
+	background-color: #006838;
+	height: 160px;
 	color: white;
-	transition: all 1000ms;
+	transition: all 500ms;
 	overflow: auto;
 }
 
@@ -71,6 +71,7 @@ form {
 	justify-content: center;
 	flex: 1;
 	text-align: center;
+	cursor: pointer;
 
 	h3, p {
 		margin: 0;
@@ -137,5 +138,18 @@ form {
 
 	.DEL {
 		background-color: #e59400;
+	}
+}
+
+.driver-options {
+	display: flex;
+	height: 80px;
+	align-items: center;
+	justify-content: center;
+	background-color: #278157;
+
+	.driver-option {
+		flex: 1;
+		font-size: 2em;
 	}
 }

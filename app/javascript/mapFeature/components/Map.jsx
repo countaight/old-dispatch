@@ -123,12 +123,13 @@ export default class Map extends React.Component {
 
 		if(user.assignments.length > 0) {
 			const userPlacesCoords = user.assignments.map((assignment) => assignment.place.location);
+			userPlacesCoords.push(user.coordinates);
 
 			const {center, zoom} = zoomTo(userPlacesCoords);
 			this._setCenter(center);
 			this._setZoom(zoom);
 		} else {
-			this._setCenter(user.cooridnates);
+			this._setCenter(user.coordinates);
 		}
 
 	}

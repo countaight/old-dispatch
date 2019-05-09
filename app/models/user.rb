@@ -1,7 +1,7 @@
-class User < ActiveRecord::Base
+class User < ActiveRecord
   rolify
 	validates :email, :name, presence: true
-	
+
 	has_secure_password
 	validates_presence_of :password, on: :create
 	serialize :coordinates
